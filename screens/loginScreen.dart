@@ -22,28 +22,32 @@ class Loginscreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 75),
-                    child: ShaderMask(
-                      blendMode: BlendMode.srcIn,
-                      shaderCallback: (Rect bounds) {
-                        return LinearGradient(
-                          begin: Alignment.bottomLeft,
-                          end: Alignment.topRight,
-                          colors: [
-                            Color(0xFFFFDC80), // Amarelo (Canto inferior esquerdo)
-                            Color(0xFFF77737), // Laranja
-                            Color(0xFFFD1D1D), // Vermelho
-                            Color(0xFFC13584), // Rosa choque
-                            Color(0xFF833AB4), // Roxo
-                            Color(0xFF405DE6), // Azul (Canto superior direito)
-                          ],
-                        ).createShader(bounds);
-                      },
-                      child: Text(
-                        "Instagram",
-                        style: TextStyle(fontSize: 47, color: AppColorsLogin.nameInstagramLogin),
+                SizedBox(height: ScreenSizeLogin.screenHeight * 0.2),
+                Expanded(
+                  flex: 2,
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 75),
+                      child: ShaderMask(
+                        blendMode: BlendMode.srcIn,
+                        shaderCallback: (Rect bounds) {
+                          return LinearGradient(
+                            begin: Alignment.bottomLeft,
+                            end: Alignment.topRight,
+                            colors: [
+                              Color(0xFFFFDC80), // Amarelo (Canto inferior esquerdo)
+                              Color(0xFFF77737), // Laranja
+                              Color(0xFFFD1D1D), // Vermelho
+                              Color(0xFFC13584), // Rosa choque
+                              Color(0xFF833AB4), // Roxo
+                              Color(0xFF405DE6), // Azul (Canto superior direito)
+                            ],
+                          ).createShader(bounds);
+                        },
+                        child: Text(
+                          "Instagram",
+                          style: TextStyle(fontSize: 47, color: AppColorsLogin.nameInstagramLogin),
+                        ),
                       ),
                     ),
                   ),
@@ -51,6 +55,7 @@ class Loginscreen extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: ScreenSizeLogin.screenWidth * 0.02),
                   child: TextField(
+                    style: TextStyle(color: AppColorsLogin.genericWhite),
                     maxLength: 30, // Limita a 30 caracteres
                     maxLines: 1, // Garante que o nome de usuário não pule linha
                     decoration: InputDecoration(
@@ -82,6 +87,8 @@ class Loginscreen extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: ScreenSizeLogin.screenWidth * 0.02),
                   child: TextField(
+                    style: TextStyle(color: AppColorsLogin.genericWhite),
+                    obscureText: true,
                     maxLength: 30, // Limita a 30 caracteres
                     maxLines: 1, // Garante que o nome de usuário não pule linha
                     decoration: InputDecoration(
@@ -90,6 +97,7 @@ class Loginscreen extends StatelessWidget {
                         horizontal: ScreenSizeLogin.screenWidth * 0.03,
                       ),
                       hintText: "Senha",
+
                       hintStyle: TextStyle(
                         color: AppColorsLogin.genericWhite,
                         fontSize: 15,
@@ -135,53 +143,56 @@ class Loginscreen extends StatelessWidget {
                   ),
                 ),
 
-                const SizedBox(height: 12),
+                const Spacer(),
 
-                Container(
-                  alignment: Alignment.center,
-                  child: Column(
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {},
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: ScreenSizeLogin.screenHeight * 0.1),
 
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColorsLogin.loginBackground,
-                          minimumSize: Size(defaultWidth * 1.03, 48),
-                          side: const BorderSide(color: AppColorsLogin.btnEnter),
-                        ),
-                        child: Text(
-                          "Criar nova conta",
-                          style: TextStyle(
-                            color: AppColorsLogin.btnEnter,
-                            fontSize: 16.6,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 0.7,
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Column(
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColorsLogin.loginBackground,
+                            minimumSize: Size(defaultWidth * 1.03, 48),
+                            side: const BorderSide(color: AppColorsLogin.btnEnter),
                           ),
-                        ),
-                      ),
-
-                      const SizedBox(height: 15),
-
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          FaIcon(
-                            FontAwesomeIcons.meta, // O 's' no final de Icons é fundamental
-                            color: AppColorsLogin.genericWhite,
-                            size: 17,
-                          ),
-                          const SizedBox(width: 7),
-                          Text(
-                            "Meta",
+                          child: Text(
+                            "Criar nova conta",
                             style: TextStyle(
-                              color: AppColorsLogin.genericWhite,
-                              fontSize: 17,
+                              color: AppColorsLogin.btnEnter,
+                              fontSize: 16.6,
                               fontWeight: FontWeight.bold,
+                              letterSpacing: 0.7,
                             ),
                           ),
-                        ],
-                      ),
-                    ],
+                        ),
+
+                        const SizedBox(height: 15),
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            FaIcon(
+                              FontAwesomeIcons.meta, // O 's' no final de Icons é fundamental
+                              color: AppColorsLogin.genericWhite,
+                              size: 17,
+                            ),
+                            const SizedBox(width: 7),
+                            Text(
+                              "Meta",
+                              style: TextStyle(
+                                color: AppColorsLogin.genericWhite,
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
