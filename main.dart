@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_app/models/modelProvider.dart';
 import 'package:instagram_app/screens/homeScreen.dart';
 import 'package:instagram_app/screens/loginScreen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [ChangeNotifierProvider(create: (_) => NavigatorProvider())],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -14,10 +21,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false, //
       home: Loginscreen(),
-      routes: {
-        "/": (context) => const Loginscreen(),
-        "/homeScreen": (context) => const Homescreen(),
-      },
+      initialRoute: '/',
+      routes: {"/homeScreen": (context) => const Homescreen()},
     );
   }
 }
