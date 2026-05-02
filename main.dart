@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_app/screens/homeScreen.dart';
 import 'package:instagram_app/screens/loginScreen.dart';
 
 void main() {
@@ -13,6 +14,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false, //
       home: Loginscreen(),
+      routes: {
+        "/": (context) => const Loginscreen(),
+        "/homeScreen": (context) => const Homescreen(),
+      },
     );
   }
 }
