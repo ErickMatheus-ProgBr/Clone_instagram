@@ -25,9 +25,26 @@ class Loginscreen extends StatelessWidget {
                 Center(
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 75),
-                    child: Text(
-                      "Instagram", //
-                      style: TextStyle(fontSize: 47, color: AppColorsLogin.nameInstagramLogin),
+                    child: ShaderMask(
+                      blendMode: BlendMode.srcIn,
+                      shaderCallback: (Rect bounds) {
+                        return LinearGradient(
+                          begin: Alignment.bottomLeft,
+                          end: Alignment.topRight,
+                          colors: [
+                            Color(0xFFFFDC80), // Amarelo (Canto inferior esquerdo)
+                            Color(0xFFF77737), // Laranja
+                            Color(0xFFFD1D1D), // Vermelho
+                            Color(0xFFC13584), // Rosa choque
+                            Color(0xFF833AB4), // Roxo
+                            Color(0xFF405DE6), // Azul (Canto superior direito)
+                          ],
+                        ).createShader(bounds);
+                      },
+                      child: Text(
+                        "Instagram",
+                        style: TextStyle(fontSize: 47, color: AppColorsLogin.nameInstagramLogin),
+                      ),
                     ),
                   ),
                 ),
