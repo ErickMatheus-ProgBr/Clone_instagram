@@ -8,3 +8,13 @@ class AppColorsLogin {
   static const Color btnEnter = Color(0xFF1A70B6);
   static const Color borderTextfield = Color(0xFFB3B3B3);
 }
+
+class AppcolorsHomeScreen {
+  static const Color textInstagram = Color.fromARGB(255, 255, 255, 255);
+  static const Color textStorys = Color.fromARGB(255, 255, 255, 255);
+  static const Color userName = Color.fromARGB(255, 255, 255, 255);
+  static const Color plainText = Color.fromARGB(255, 255, 255, 255);
+  static const Color verifiedIcon = Color.fromARGB(255, 255, 255, 255);
+  static const Color backgroundColor = Color(0xFF000000);
+  static const Color colorsIcons = Color(0xFFE7E6E6);
+}
