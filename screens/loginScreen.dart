@@ -118,7 +118,9 @@ class Loginscreen extends StatelessWidget {
                 ),
 
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/homeScreen');
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColorsLogin.btnEnter,
                     minimumSize: Size(defaultWidth * 1.03, 48),
