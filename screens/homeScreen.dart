@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:instagram_app/models/modelProvider.dart';
 import 'package:instagram_app/themeColors/appColors.dart';
 import 'package:provider/provider.dart';
+import 'package:instagram_app/screens/feed_screen.dart';
 
 class Homescreen extends StatefulWidget {
   const Homescreen({super.key});
@@ -11,27 +12,27 @@ class Homescreen extends StatefulWidget {
 }
 
 class _HomescreenState extends State<Homescreen> {
+  final List<Widget> _navigatorBar = [
+    FeedScreen(),
+    const Center(
+      child: Text("Feed Main", style: TextStyle(color: AppcolorsHomeScreen.colorsIcons)),
+    ),
+    const Center(
+      child: Text("Search Page", style: TextStyle(color: Colors.white)),
+    ),
+    const Center(
+      child: Text("New Publication", style: TextStyle(color: Colors.white)),
+    ),
+    const Center(
+      child: Text("Reels Videos", style: TextStyle(color: Colors.white)),
+    ),
+    const Center(
+      child: Text("My Profile", style: TextStyle(color: Colors.white)),
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    // Coloque isso antes do build
-    final List<Widget> _screens = [
-      const Center(
-        child: Text("Feed Principal", style: TextStyle(color: Colors.white)),
-      ),
-      const Center(
-        child: Text("Tela de Pesquisa", style: TextStyle(color: Colors.white)),
-      ),
-      const Center(
-        child: Text("Tela de Postagem", style: TextStyle(color: Colors.white)),
-      ),
-      const Center(
-        child: Text("Tela de Reels", style: TextStyle(color: Colors.white)),
-      ),
-      const Center(
-        child: Text("Seu Perfil", style: TextStyle(color: Colors.white)),
-      ),
-    ];
-
     final navigationProvider = context.watch<NavigatorProvider>();
 
     return Scaffold(
@@ -46,24 +47,22 @@ class _HomescreenState extends State<Homescreen> {
         actions: [Icon(Icons.favorite_outline, size: 29, color: AppcolorsHomeScreen.colorsIcons)],
       ),
 
+      body: _navigatorBar[navigationProvider.currentIndex],
+
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: context.watch<NavigatorProvider>().currentIndex,
         onTap: (index) => context.read<NavigatorProvider>().updateIndex(index),
         type: BottomNavigationBarType.fixed,
         backgroundColor: AppcolorsHomeScreen.backgroundColor,
-        unselectedItemColor: Colors.red,
+        unselectedItemColor: Colors.white,
         showSelectedLabels: false,
-
         showUnselectedLabels: false,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Pesquisa'),
-          BottomNavigationBarItem(icon: Icon(Icons.add_box_outlined), label: 'Postar'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.movie_outlined),
-            label: 'Reels',
-          ), // Ícone estilo Reels
-          BottomNavigationBarItem(icon: Icon(Icons.account_circle_outlined), label: 'Perfil'),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
+          BottomNavigationBarItem(icon: Icon(Icons.add_box_outlined), label: 'Post'),
+          BottomNavigationBarItem(icon: Icon(Icons.movie_outlined), label: 'Reels'),
+          BottomNavigationBarItem(icon: Icon(Icons.account_circle_outlined), label: 'Profile'),
         ],
       ),
     );
