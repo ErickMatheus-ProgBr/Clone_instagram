@@ -7,6 +7,6 @@ class NavigatorProvider extends ChangeNotifier {
 
   void updateIndex(int index) {
     _currentIndex = index;
-    notifyListeners();
+    notifyListeners(); // Avisa o app para mudar de tela
   }
 }
