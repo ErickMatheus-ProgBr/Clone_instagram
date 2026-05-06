@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_app/providers/post_provider.dart';
 import 'package:instagram_app/models/post_model.dart';
 
 class FeedScreen extends StatelessWidget {
@@ -6,32 +7,32 @@ class FeedScreen extends StatelessWidget {
 
   final List<PostModel> listPost = [
     PostModel(
-      userName: "Joao_Dev",
-      userImage: "https://i.pravatar.cc/150?u=1",
+      userId: "Joao_Dev",
+      id: "https://i.pravatar.cc/150?u=1",
       postImage: "https://picsum.photos/500/500?random=1",
       caption: "Codando meu clone do Instagram! 🚀",
     ),
     PostModel(
-      userName: "Maria_Flutter",
-      userImage: "https://i.pravatar.cc/150?u=2",
+      userId: "Maria_Flutter",
+      id: "https://i.pravatar.cc/150?u=2",
       postImage: "https://picsum.photos/500/500?random=2",
       caption: "O Provider é muito legal!",
     ),
     PostModel(
-      userName: "Maria_Flutter",
-      userImage: "https://i.pravatar.cc/150?u=2",
+      userId: "Maria_Flutter",
+      id: "https://i.pravatar.cc/150?u=2",
       postImage: "https://picsum.photos/500/500?random=2",
       caption: "O Provider é muito legal!",
     ),
     PostModel(
-      userName: "Maria_Flutter",
-      userImage: "https://i.pravatar.cc/150?u=2",
+      userId: "Maria_Flutter",
+      id: "https://i.pravatar.cc/150?u=2",
       postImage: "https://picsum.photos/500/500?random=2",
       caption: "O Provider é muito legal!",
     ),
     PostModel(
-      userName: "Maria_Flutter",
-      userImage: "https://i.pravatar.cc/150?u=2",
+      userId: "Maria_Flutter",
+      id: "https://i.pravatar.cc/150?u=2",
       postImage: "https://picsum.photos/500/500?random=2",
       caption: "O Provider é muito legal!",
     ),
@@ -58,7 +59,7 @@ class FeedScreen extends StatelessWidget {
             ),
           ),
 
-          const Divider(color: Colors.red),
+          const Divider(color: Colors.grey),
 
           // 2. ÁREA DE POSTS
           Column(
@@ -94,15 +95,39 @@ Widget _itemPost(PostModel post) {
         horizontalTitleGap: 10,
         leading: CircleAvatar(radius: 14, backgroundImage: NetworkImage(post.postImage)),
         title: Text(
-          post.userName,
+          post.userId,
           style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
         ),
       ),
       Image.network(post.postImage, height: 350, width: double.infinity, fit: BoxFit.cover),
-      Padding(
-        padding: EdgeInsets.all(8.0),
-        child: Text(post.caption, style: TextStyle(color: Colors.white)),
+
+      Row(
+        children: [
+          Row(
+            children: [
+              IconButton(onPressed: () {}, icon: Icon(Icons.favorite_border, size: 27)),
+              Text("168 mil", style: TextStyle(color: Colors.white)),
+            ],
+          ),
+          Row(
+            children: [
+              const SizedBox(width: 20),
+              Icon(Icons.chat_bubble_outline, color: Colors.white),
+              const SizedBox(width: 6),
+              Text("6.201", style: TextStyle(color: Colors.white)),
+            ],
+          ),
+          Row(
+            children: [
+              const SizedBox(width: 20),
+              Icon(Icons.send, color: Colors.white),
+              const SizedBox(width: 2),
+              Text("1.231", style: TextStyle(color: Colors.white)),
+            ],
+          ),
+        ],
       ),
+      Text(post.caption, style: TextStyle(color: Colors.white)),
     ],
   );
 }
