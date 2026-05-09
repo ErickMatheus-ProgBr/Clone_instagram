@@ -23,15 +23,17 @@ class PostProvider extends ChangeNotifier {
       var usersData = await _apiService.getUserName();
 
       for (var i = 0; i < postsData.length; i++) {
+        // 1. Atribui a foto se ela existir
         if (i < photosData.length) {
-          // Aqui você está colocando a URL dentro do objeto post
-          postsData[i].imageUrl = photosData[i].url;
-          var userPost = usersData.firstWhere(
-            (user) => user.id == postsData[i].userId,
-            orElse: () => UsersModel(id: 0, userName: "Desconhecido"),
-          );
-          postsData[i].username = userPost.userName;
+          postsData[i].imageUrl = "https://picsum.photos/500/500?random=${postsData[i].id}";
         }
+
+        // 2. Atribui o usuário (Sempre fora do IF da foto, mas dentro do FOR)
+        var userPost = usersData.firstWhere(
+          (user) => user.id == postsData[i].userId,
+          orElse: () => UsersModel(id: 0, userName: "Desconhecido"),
+        );
+        postsData[i].username = userPost.userName;
       }
 
       _posts = postsData;
