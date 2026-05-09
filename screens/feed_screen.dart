@@ -1,46 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_app/providers/post_provider.dart';
 import 'package:instagram_app/models/post_model.dart';
+import 'package:instagram_app/themeColors/appColors.dart';
+import 'package:provider/provider.dart';
 
 class FeedScreen extends StatelessWidget {
-  FeedScreen({super.key}); // Adicionado const e corrigido construtor
-
-  final List<PostModel> listPost = [
-    PostModel(
-      userId: "Joao_Dev",
-      id: "https://i.pravatar.cc/150?u=1",
-      postImage: "https://picsum.photos/500/500?random=1",
-      caption: "Codando meu clone do Instagram! 🚀",
-    ),
-    PostModel(
-      userId: "Maria_Flutter",
-      id: "https://i.pravatar.cc/150?u=2",
-      postImage: "https://picsum.photos/500/500?random=2",
-      caption: "O Provider é muito legal!",
-    ),
-    PostModel(
-      userId: "Maria_Flutter",
-      id: "https://i.pravatar.cc/150?u=2",
-      postImage: "https://picsum.photos/500/500?random=2",
-      caption: "O Provider é muito legal!",
-    ),
-    PostModel(
-      userId: "Maria_Flutter",
-      id: "https://i.pravatar.cc/150?u=2",
-      postImage: "https://picsum.photos/500/500?random=2",
-      caption: "O Provider é muito legal!",
-    ),
-    PostModel(
-      userId: "Maria_Flutter",
-      id: "https://i.pravatar.cc/150?u=2",
-      postImage: "https://picsum.photos/500/500?random=2",
-      caption: "O Provider é muito legal!",
-    ),
-  ];
+  const FeedScreen({super.key}); // Adicionado const e corrigido construtor
 
   @override
   Widget build(BuildContext context) {
     // A tela principal deve rolar para BAIXO (Vertical)
+
+    final postProvider = Provider.of<PostProvider>(context);
+
+    if (postProvider.posts.isEmpty && !postProvider.loading) {
+      Future.microtask(() => postProvider.fetchPost());
+    }
+
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -49,6 +25,12 @@ class FeedScreen extends StatelessWidget {
             scrollDirection: Axis.horizontal, // Só os stories rolam horizontalmente
             child: Row(
               children: [
+                Column(
+                  children: [
+                    _itemStory("Erick", Icons.portable_wifi_off_outlined),
+                    Text("BLABLABLA", style: TextStyle(color: Colors.white)),
+                  ],
+                ),
                 _itemStory("Erick", Icons.portable_wifi_off_outlined),
                 _itemStory("Erick", Icons.portable_wifi_off_outlined),
                 _itemStory("Erick", Icons.portable_wifi_off_outlined),
@@ -64,7 +46,7 @@ class FeedScreen extends StatelessWidget {
           // 2. ÁREA DE POSTS
           Column(
             // AQUI ESTÁ O AJUSTE: O map já entrega a lista pronta para o children
-            children: listPost.map((item) => _itemPost(item)).toList(),
+            children: postProvider.posts.map((post) => _itemPost(post)).toList(),
           ),
         ],
       ),
@@ -89,45 +71,79 @@ class FeedScreen extends StatelessWidget {
 
 Widget _itemPost(PostModel post) {
   return Column(
-    crossAxisAlignment: CrossAxisAlignment.start, // alinha o texto a esquerda
+    crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       ListTile(
-        horizontalTitleGap: 10,
-        leading: CircleAvatar(radius: 14, backgroundImage: NetworkImage(post.postImage)),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 9.0),
+        leading: CircleAvatar(
+          radius: 16,
+          backgroundImage: NetworkImage("https://picsum.photos/200/200?random=${post.userId}"),
+        ),
         title: Text(
-          post.userId,
-          style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
+          post.username ?? "Usúario",
+          style: TextStyle(color: AppcolorsHomeScreen.plainText, fontWeight: FontWeight.bold),
         ),
       ),
-      Image.network(post.postImage, height: 350, width: double.infinity, fit: BoxFit.cover),
-
-      Row(
-        children: [
-          Row(
-            children: [
-              IconButton(onPressed: () {}, icon: Icon(Icons.favorite_border, size: 27)),
-              Text("168 mil", style: TextStyle(color: Colors.white)),
-            ],
-          ),
-          Row(
-            children: [
-              const SizedBox(width: 20),
-              Icon(Icons.chat_bubble_outline, color: Colors.white),
-              const SizedBox(width: 6),
-              Text("6.201", style: TextStyle(color: Colors.white)),
-            ],
-          ),
-          Row(
-            children: [
-              const SizedBox(width: 20),
-              Icon(Icons.send, color: Colors.white),
-              const SizedBox(width: 2),
-              Text("1.231", style: TextStyle(color: Colors.white)),
-            ],
-          ),
-        ],
+      Image.network(
+        post.imageUrl ?? "",
+        height: 350,
+        width: double.infinity,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) => Container(
+          height: 350,
+          color: AppcolorsHomeScreen.textInstagram,
+          child: Icon(Icons.broken_image, size: 200),
+        ),
       ),
-      Text(post.caption, style: TextStyle(color: Colors.white)),
+
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 1.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.favorite_border_sharp, color: AppcolorsHomeScreen.plainText),
+                ),
+                Text("45", style: TextStyle(color: Colors.white)),
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.mode_comment_outlined, color: AppcolorsHomeScreen.plainText),
+                ),
+                Text("30", style: TextStyle(color: Colors.white)),
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.ios_share_outlined, color: AppcolorsHomeScreen.plainText),
+                ),
+                Text("5", style: TextStyle(color: Colors.white)),
+              ],
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.bookmark_border, color: Colors.white),
+            ),
+          ],
+        ),
+      ),
+
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 1.0),
+        child: RichText(
+          text: TextSpan(
+            style: const TextStyle(color: Colors.white, fontSize: 14),
+            children: [
+              TextSpan(
+                text: "${post.username} ",
+                style: TextStyle(color: Colors.red, fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              TextSpan(text: post.body),
+            ],
+          ),
+        ),
+      ),
     ],
   );
 }
