@@ -1,5 +1,3 @@
-import 'package:http/http.dart';
-
 class PostPhoto {
   final int id;
   final String url;
