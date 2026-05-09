@@ -2,11 +2,10 @@ import 'package:http/http.dart' as http;
 import 'package:instagram_app/models/post_photo.dart';
 import 'package:instagram_app/models/users_model.dart';
 import 'dart:convert';
-import 'package:instagram_app/providers/modelProvider.dart';
 import 'package:instagram_app/models/post_model.dart';
 
 class ApiService {
-  final String _url = 'https://jsonplaceholder.typicode.com/posts';
+  final String _url = 'https://jsonplaceholder.typicode.com/posts?_limit=10';
 
   Future<List<PostModel>> getPosts() async {
     try {
