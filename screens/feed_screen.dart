@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:instagram_app/providers/post_provider.dart';
 import 'package:instagram_app/models/post_model.dart';
 import 'package:instagram_app/themeColors/appColors.dart';
@@ -56,17 +57,32 @@ class FeedScreen extends StatelessWidget {
 
   Widget _itemStory(String nome, String? imageUrl) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          CircleAvatar(
-            radius: 35,
-            backgroundColor: Colors.amber,
-            backgroundImage: imageUrl != null && imageUrl.isNotEmpty
-                ? NetworkImage(imageUrl)
-                : const NetworkImage("https://via.placeholder.com/150"),
+      padding: const EdgeInsets.symmetric(horizontal: 3.2),
+      child: Container(
+        padding: const EdgeInsets.all(3.0),
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          gradient: const LinearGradient(
+            begin: Alignment.bottomLeft,
+            end: Alignment.topRight,
+            colors: [
+              Color(0xFFFFDC80), // Amarelo (Canto inferior esquerdo)
+              Color(0xFFF77737), // Laranja
+              Color(0xFFFD1D1D), // Vermelho
+              Color(0xFFC13584), // Rosa choque
+              Color(0xFF833AB4), // Roxo
+              Color(0xFF405DE6), // Azul (Canto superior direito)
+            ],
           ),
-        ],
+        ),
+        child: Container(
+          padding: EdgeInsets.all(3.5),
+          decoration: const BoxDecoration(color: Colors.black, shape: BoxShape.circle),
+          child: CircleAvatar(
+            radius: 37,
+            backgroundImage: NetworkImage("https://via.placeholder.com/150"),
+          ),
+        ),
       ),
     );
   }
@@ -78,7 +94,7 @@ Widget _itemPost(PostModel post) {
     children: [
       // 1. Cabeçalho (Avatar + Nome)
       ListTile(
-        contentPadding: const EdgeInsets.symmetric(horizontal: 12.0),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 6.0),
         leading: CircleAvatar(
           radius: 16,
           backgroundImage: NetworkImage("https://picsum.photos/200/200?random=${post.userId}"),
@@ -86,6 +102,11 @@ Widget _itemPost(PostModel post) {
         title: Text(
           post.username ?? "Usuário",
           style: TextStyle(color: AppcolorsHomeScreen.plainText, fontWeight: FontWeight.bold),
+        ),
+        trailing: IconButton(
+          onPressed: () {},
+          padding: EdgeInsets.zero,
+          icon: Icon(Icons.more_horiz_outlined, color: AppcolorsHomeScreen.textInstagram),
         ),
       ),
 
@@ -100,42 +121,77 @@ Widget _itemPost(PostModel post) {
       ),
 
       // 3. Barra de Interação (Ícones)
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0), // Alinhado com 12
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                Icon(Icons.favorite_border, color: Colors.white, size: 28),
-                const SizedBox(width: 5),
-                const Text("45", style: TextStyle(color: Colors.white)),
-                const SizedBox(width: 15),
-                Icon(Icons.mode_comment_outlined, color: Colors.white, size: 26),
-                const SizedBox(width: 5),
-                const Text("30", style: TextStyle(color: Colors.white)),
-                const SizedBox(width: 15),
-                Icon(Icons.send_outlined, color: Colors.white, size: 26),
-              ],
-            ),
-            const Icon(Icons.bookmark_border, color: Colors.white, size: 28),
-          ],
-        ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.favorite_border_rounded, color: AppcolorsHomeScreen.plainText, size: 28),
+              Padding(
+                padding: const EdgeInsets.only(left: 2),
+                child: Text(
+                  "12.334",
+                  style: TextStyle(
+                    color: AppcolorsHomeScreen.textInstagram,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              SizedBox(width: 15),
+              Icon(Icons.mode_comment_outlined, color: AppcolorsHomeScreen.plainText, size: 28),
+              Padding(
+                padding: const EdgeInsets.only(left: 2),
+                child: Text(
+                  "4.367",
+                  style: TextStyle(
+                    color: AppcolorsHomeScreen.textInstagram,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              SizedBox(width: 10),
+              Icon(Icons.repeat, color: AppcolorsHomeScreen.plainText, size: 28),
+              SizedBox(width: 15),
+              Icon(Icons.send_rounded, color: AppcolorsHomeScreen.plainText, size: 28),
+              Padding(
+                padding: const EdgeInsets.only(left: 2),
+                child: Text(
+                  "12.334",
+                  style: TextStyle(
+                    color: AppcolorsHomeScreen.textInstagram,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.bookmark_border, color: Colors.white, size: 30),
+          ),
+        ],
       ),
 
       // 4. Legenda
       Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
-        child: RichText(
-          text: TextSpan(
-            style: const TextStyle(color: Colors.white, fontSize: 14),
-            children: [
-              TextSpan(
-                text: "${post.username} ",
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-              TextSpan(text: post.body),
-            ],
+        padding: const EdgeInsets.symmetric(horizontal: 5),
+        child: SizedBox(
+          width: double.infinity, // força o texto a ocupar a largura toda
+          child: RichText(
+            softWrap: true,
+            text: TextSpan(
+              style: TextStyle(color: AppcolorsHomeScreen.textStorys, fontSize: 14),
+              children: [
+                TextSpan(
+                  text: "${post.username} ",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                TextSpan(text: post.body?.replaceAll('\n', ' ')), // Remove quebras de linha da API
+              ],
+            ),
           ),
         ),
       ),
