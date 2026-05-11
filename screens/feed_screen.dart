@@ -25,23 +25,27 @@ class FeedScreen extends StatelessWidget {
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
-              children: postProvider.posts.map((post) {
-                return Column(
-                  children: [
-                    _itemStory(post.username ?? "", post.imageUrl),
-                    SizedBox(
-                      width: 70,
-                      child: Text(
-                        post.username ?? "User",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: AppcolorsHomeScreen.colorsIcons),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
+              children: [
+                _builderMyStorys(),
+
+                ...postProvider.posts.map((post) {
+                  return Column(
+                    children: [
+                      _itemStory(post),
+                      SizedBox(
+                        width: 72,
+                        child: Text(
+                          post.username ?? "User",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: AppcolorsHomeScreen.colorsIcons),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
                       ),
-                    ),
-                  ],
-                );
-              }).toList(), // Transforma o mapeamento de volta em uma lista de widgets
+                    ],
+                  );
+                }).toList(), // Transforma o mapeamento de volta em uma lista de widgets
+              ],
             ),
           ),
 
@@ -55,32 +59,76 @@ class FeedScreen extends StatelessWidget {
     );
   }
 
-  Widget _itemStory(String nome, String? imageUrl) {
+  Widget _builderMyStorys() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 3.2),
+      padding: const EdgeInsets.symmetric(horizontal: 3),
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.all(3),
+            decoration: BoxDecoration(shape: BoxShape.circle),
+            child: Container(
+              padding: EdgeInsets.all(3),
+              decoration: const BoxDecoration(color: Colors.grey, shape: BoxShape.circle),
+              child: Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  const CircleAvatar(
+                    radius: 35.5,
+                    backgroundImage: AssetImage("assets/images/erick.png"),
+                  ),
+
+                  Positioned(
+                    bottom: -2,
+                    right: -2,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                        border: Border.all(color: Colors.white10, width: 0.5),
+                      ),
+                      child: Icon(Icons.add),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Text("My Story", style: TextStyle(color: AppcolorsHomeScreen.plainText, fontSize: 13)),
+        ],
+      ),
+    );
+  }
+
+  Widget _itemStory(PostModel post) {
+    // Alterado para receber o PostModel completo
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 4.0),
       child: Container(
-        padding: const EdgeInsets.all(3.0),
-        decoration: BoxDecoration(
+        padding: const EdgeInsets.all(2.5), // Espessura da borda colorida
+        decoration: const BoxDecoration(
           shape: BoxShape.circle,
-          gradient: const LinearGradient(
+          gradient: LinearGradient(
             begin: Alignment.bottomLeft,
             end: Alignment.topRight,
             colors: [
-              Color(0xFFFFDC80), // Amarelo (Canto inferior esquerdo)
+              Color(0xFFFFDC80), // Amarelo
               Color(0xFFF77737), // Laranja
               Color(0xFFFD1D1D), // Vermelho
               Color(0xFFC13584), // Rosa choque
               Color(0xFF833AB4), // Roxo
-              Color(0xFF405DE6), // Azul (Canto superior direito)
+              Color(0xFF405DE6), // Azul
             ],
           ),
         ),
         child: Container(
-          padding: EdgeInsets.all(3.5),
+          padding: const EdgeInsets.all(3.0), // Anel preto de respiro
           decoration: const BoxDecoration(color: Colors.black, shape: BoxShape.circle),
           child: CircleAvatar(
-            radius: 37,
-            backgroundImage: NetworkImage("https://via.placeholder.com/150"),
+            radius: 35, // Tamanho ajustado para o feed
+            backgroundColor: Colors.grey[900],
+            // A MÁGICA: Usamos o ID do post para o Pravatar não repetir a foto
+            backgroundImage: NetworkImage("https://i.pravatar.cc/300?u=${post.id}"),
           ),
         ),
       ),
