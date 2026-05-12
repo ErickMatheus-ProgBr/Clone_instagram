@@ -43,7 +43,11 @@ class _HomescreenState extends State<Homescreen> {
           onPressed: () {},
           icon: Icon(Icons.add, size: 30, color: AppcolorsHomeScreen.colorsIcons),
         ),
-        title: Text("Instagram", style: TextStyle(color: AppcolorsHomeScreen.plainText)),
+        title: Text(
+          "Instagram",
+          textAlign: TextAlign.center,
+          style: TextStyle(color: AppcolorsHomeScreen.plainText),
+        ),
         actions: [Icon(Icons.favorite_outline, size: 29, color: AppcolorsHomeScreen.colorsIcons)],
       ),
 
@@ -55,13 +59,14 @@ class _HomescreenState extends State<Homescreen> {
         type: BottomNavigationBarType.fixed,
         backgroundColor: AppcolorsHomeScreen.backgroundColor,
         unselectedItemColor: Colors.white,
+
         showSelectedLabels: false,
         showUnselectedLabels: false,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-          BottomNavigationBarItem(icon: Icon(Icons.add_box_outlined), label: 'Post'),
           BottomNavigationBarItem(icon: Icon(Icons.movie_outlined), label: 'Reels'),
+          BottomNavigationBarItem(icon: Icon(Icons.ios_share_sharp), label: 'Messages'),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
           BottomNavigationBarItem(icon: Icon(Icons.account_circle_outlined), label: 'Profile'),
         ],
       ),
