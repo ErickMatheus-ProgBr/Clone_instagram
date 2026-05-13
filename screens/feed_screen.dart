@@ -18,43 +18,59 @@ class FeedScreen extends StatelessWidget {
       Future.microtask(() => postProvider.fetchPost());
     }
 
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          // 1. ÁREA DE STORIES (Rola para o lado)
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                _builderMyStorys(),
+    return Scaffold(
+      backgroundColor: AppcolorsHomeScreen.backgroundColor,
+      appBar: AppBar(
+        backgroundColor: AppcolorsHomeScreen.backgroundColor,
+        leading: IconButton(
+          onPressed: () {},
+          icon: Icon(Icons.add, size: 30, color: AppcolorsHomeScreen.colorsIcons),
+        ),
+        title: Text(
+          "Instagram",
+          textAlign: TextAlign.center,
+          style: TextStyle(color: AppcolorsHomeScreen.plainText),
+        ),
+        actions: [Icon(Icons.favorite_outline, size: 29, color: AppcolorsHomeScreen.colorsIcons)],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            // 1. ÁREA DE STORIES (Rola para o lado)
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  _builderMyStorys(),
 
-                ...postProvider.posts.map((post) {
-                  return Column(
-                    children: [
-                      _itemStory(post),
-                      SizedBox(
-                        width: 72,
-                        child: Text(
-                          post.username ?? "User",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: AppcolorsHomeScreen.colorsIcons),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
+                  ...postProvider.posts.map((post) {
+                    return Column(
+                      children: [
+                        _itemStory(post),
+                        SizedBox(
+                          width: 72,
+                          child: Text(
+                            post.username ?? "User",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: AppcolorsHomeScreen.colorsIcons),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
                         ),
-                      ),
-                    ],
-                  );
-                }).toList(), // Transforma o mapeamento de volta em uma lista de widgets
-              ],
+                      ],
+                    );
+                  }).toList(), // Transforma o mapeamento de volta em uma lista de widgets
+                ],
+              ),
             ),
-          ),
 
-          // 2. ÁREA DE POSTS
-          Column(
-            // AQUI ESTÁ O AJUSTE: O map já entrega a lista pronta para o children
-            children: postProvider.posts.map((post) => _itemPost(post)).toList(),
-          ),
-        ],
+            // 2. ÁREA DE POSTS
+            Column(
+              // AQUI ESTÁ O AJUSTE: O map já entrega a lista pronta para o children
+              children: postProvider.posts.map((post) => _itemPost(post)).toList(),
+            ),
+          ],
+        ),
       ),
     );
   }
