@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_app/providers/model_provider.dart';
+import 'package:instagram_app/screens/searchScreen.dart';
 import 'package:instagram_app/themeColors/appColors.dart';
 import 'package:provider/provider.dart';
 import 'package:instagram_app/screens/feed_screen.dart';
@@ -14,6 +15,7 @@ class Homescreen extends StatefulWidget {
 class _HomescreenState extends State<Homescreen> {
   final List<Widget> _navigatorBar = [
     FeedScreen(),
+    Searchscreen(),
     const Center(
       child: Text("Feed Main", style: TextStyle(color: AppcolorsHomeScreen.colorsIcons)),
     ),
@@ -37,19 +39,6 @@ class _HomescreenState extends State<Homescreen> {
 
     return Scaffold(
       backgroundColor: AppcolorsHomeScreen.backgroundColor,
-      appBar: AppBar(
-        backgroundColor: AppcolorsHomeScreen.backgroundColor,
-        leading: IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.add, size: 30, color: AppcolorsHomeScreen.colorsIcons),
-        ),
-        title: Text(
-          "Instagram",
-          textAlign: TextAlign.center,
-          style: TextStyle(color: AppcolorsHomeScreen.plainText),
-        ),
-        actions: [Icon(Icons.favorite_outline, size: 29, color: AppcolorsHomeScreen.colorsIcons)],
-      ),
 
       body: _navigatorBar[navigationProvider.currentIndex],
 
