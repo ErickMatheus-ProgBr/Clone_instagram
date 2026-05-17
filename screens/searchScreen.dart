@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_app/models/post_model.dart';
 import 'package:instagram_app/providers/post_provider.dart';
+import 'package:instagram_app/screens/postDetailScreen.dart';
 import 'package:instagram_app/themeColors/appColors.dart';
 import 'package:provider/provider.dart';
 
@@ -30,10 +31,10 @@ class _SearchscreenState extends State<Searchscreen> {
                 mainAxisSpacing: 2,
                 crossAxisSpacing: 2,
               ),
-              itemCount: postProvider.posts.length,
+              itemCount: postProvider.posts.length * 5,
               itemBuilder: (context, index) {
-                final post = postProvider.posts[index];
-                return _builderGridItem(post);
+                final post = postProvider.posts[index % postProvider.posts.length];
+                return _builderGridItem(post, context);
               },
             ),
           ),
@@ -76,13 +77,15 @@ Widget _builderSearchBar() {
   );
 }
 
-Widget _builderGridItem(PostModel post) {
-  return Container(
-    color: Colors.tealAccent,
-    child: Image.network(
-      post.imageUrl ?? "https://picsum.photos/500/500",
-      fit: BoxFit.cover,
-      errorBuilder: (context, error, stackTrace) => Container(color: Colors.black),
+Widget _builderGridItem(PostModel post, BuildContext context) {
+  return GestureDetector(
+    onTap: () {
+      Navigator.pushNamed(context, "/postDetail", arguments: post);
+    },
+
+    child: Hero(
+      tag: post.id.toString(), // MESMA TAG DO DETALHE
+      child: Image.network("https://picsum.photos/500/500?random=${post.id}", fit: BoxFit.cover),
     ),
   );
 }
