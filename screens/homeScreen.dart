@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_app/providers/model_provider.dart';
+import 'package:instagram_app/screens/rells_screens.dart';
 import 'package:instagram_app/screens/searchScreen.dart';
 import 'package:instagram_app/themeColors/appColors.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +16,7 @@ class Homescreen extends StatefulWidget {
 class _HomescreenState extends State<Homescreen> {
   final List<Widget> _navigatorBar = [
     FeedScreen(),
+    RellsScreens(),
     Searchscreen(),
     const Center(
       child: Text("Feed Main", style: TextStyle(color: AppcolorsHomeScreen.colorsIcons)),
