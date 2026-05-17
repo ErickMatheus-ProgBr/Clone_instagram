@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:instagram_app/providers/model_provider.dart';
 import 'package:instagram_app/providers/post_provider.dart';
 import 'package:instagram_app/screens/homeScreen.dart';
 import 'package:instagram_app/screens/loginScreen.dart';
+import 'package:instagram_app/screens/postDetailScreen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -24,9 +26,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false, //
-      home: Loginscreen(),
       initialRoute: '/',
-      routes: {"/homeScreen": (context) => const Homescreen()},
+      routes: {
+        "/": (context) => const Loginscreen(),
+        "/homeScreen": (context) => const Homescreen(),
+        "/postDetail": (context) => const Postdetailscreen(),
+      },
     );
   }
 }
