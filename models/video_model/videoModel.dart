@@ -1,4 +1,6 @@
-class Videomodel {
+enum VideoType { network, m3u8 }
+
+class Video {
   final String id;
   final String url;
   final VideoType videoType;
@@ -13,7 +15,7 @@ class Videomodel {
   final String location;
   final int views;
 
-  Videomodel({
+  Video({
     required this.id,
     required this.url,
     this.videoType = VideoType.network,
@@ -29,20 +31,24 @@ class Videomodel {
     required this.views,
   });
 
-  factory Videomodel.fromJson(Map<String, dynamic> json) {
-    return Videomodel(
+  factory Video.fromJson(Map<String, dynamic> json) {
+    return Video(
       id: json["id"],
       url: json["url"],
+      videoType: json["videoType"] == "m3u8" ? VideoType.m3u8 : VideoType.network,
       title: json["title"],
       likes: json["likes"],
-      comments: json["commensts"],
-      thumbnailUrl: json["thumbnailUrl"],
-      author: json["author"],
-      description: json["description"],
-      tags: json["tags"],
-      uploadDate: json["uploadDate"],
-      location: json["location"],
-      views: json["views"],
+      comments: json["comments"],
+      thumbnailUrl: json["thumbnailUrl"] ?? "",
+      author: Author.fromJson(json["author"] ?? {}), // Dentro de Video.fromJson, na linha author:
+      // json["author"], vai dar um erro de tipo. O json["author"]
+      //vem da internet como um Map<String, dynamic>, mas o seu modelo
+      //espera um objeto do tipo Author.
+      description: json["description"] ?? "",
+      tags: List<String>.from(json["tags"] ?? []),
+      uploadDate: json["uploadDate"] ?? "",
+      location: json["location"] ?? "",
+      views: json["views"] ?? 0,
     );
   }
 }
@@ -57,10 +63,10 @@ class Author {
 
   factory Author.fromJson(Map<String, dynamic> json) {
     return Author(
-      id: json['id'],
-      name: json['name'],
-      avatarUrl: json['avatarUrl'],
-      isVerified: json['isVerified'],
+      id: json['id'] ?? "",
+      name: json['name'] ?? "Usuário",
+      avatarUrl: json['avatarUrl'] ?? "",
+      isVerified: json['isVerified'] ?? false,
     );
   }
 }
