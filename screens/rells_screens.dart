@@ -86,7 +86,7 @@ Widget _buildReellsItem(Video video) {
       // 2. AS INFORMAÇÕES DO AUTOR (Canto inferior esquerdo)
       Positioned(
         left: 10,
-        bottom: 60,
+        bottom: 20,
         right: 80, // Dá espaço para os botões  da direita não atropelarem o texto
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
