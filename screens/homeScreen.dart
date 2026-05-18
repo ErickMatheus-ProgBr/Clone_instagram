@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_app/providers/model_provider.dart';
+import 'package:instagram_app/screens/profile.dart';
 import 'package:instagram_app/screens/rells_screens.dart';
 import 'package:instagram_app/screens/searchScreen.dart';
 import 'package:instagram_app/themeColors/appColors.dart';
@@ -18,6 +19,7 @@ class _HomescreenState extends State<Homescreen> {
     FeedScreen(),
     RellsScreens(),
     Searchscreen(),
+    ProfileScreen(),
     const Center(
       child: Text("Feed Main", style: TextStyle(color: AppcolorsHomeScreen.colorsIcons)),
     ),
