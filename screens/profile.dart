@@ -85,15 +85,18 @@ class ProfileScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "Erick Matheus",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16.5,
-                            fontWeight: FontWeight.bold,
+                        Padding(
+                          padding: const EdgeInsets.only(left: 28),
+                          child: Text(
+                            "Erick Matheus",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16.5,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
-                        SizedBox(height: 5),
+                        SizedBox(height: 7),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -124,7 +127,15 @@ class ProfileScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              // const SizedBox(height: 12),
+              const SizedBox(height: 12),
+
+              Row(
+                children: [
+                  _buildBtnProfile("Editar"),
+                  const SizedBox(width: 7),
+                  _buildBtnProfile("Compartilhar perfil"),
+                ],
+              ),
             ],
           ),
         ),
@@ -144,8 +155,23 @@ Widget _buildStatItem(String count, String label) {
       SizedBox(height: 1, width: 95),
       Text(
         label,
-        style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
+        style: TextStyle(color: Colors.white, fontSize: 15.7, fontWeight: FontWeight.w500),
       ),
     ],
+  );
+}
+
+Widget _buildBtnProfile(String label) {
+  return Expanded(
+    child: FilledButton(
+      style: FilledButton.styleFrom(
+        backgroundColor: const Color.fromARGB(255, 66, 66, 66),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(12)),
+      ),
+      onPressed: () {
+        print("Clique no botão 'Editar'");
+      },
+      child: Text(label, style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+    ),
   );
 }
