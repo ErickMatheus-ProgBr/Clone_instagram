@@ -146,7 +146,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               const SizedBox(height: 12),
 
-              Container(child: _aa()),
+              _buildProfileTabs(context),
             ],
           ),
         ),
@@ -176,8 +176,9 @@ Widget _buildBtnProfile(String label) {
   return Expanded(
     child: FilledButton(
       style: FilledButton.styleFrom(
-        backgroundColor: const Color.fromARGB(255, 66, 66, 66),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(12)),
+        minimumSize: Size(0, 33),
+        backgroundColor: const Color(0xFF424242),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(9)),
       ),
       onPressed: () {
         print("Clique no botão 'Editar'");
@@ -187,12 +188,17 @@ Widget _buildBtnProfile(String label) {
   );
 }
 
-Widget _aa() {
+Widget _buildProfileTabs(BuildContext context) {
   return DefaultTabController(
     length: 4,
     child: Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         TabBar(
+          indicatorPadding: EdgeInsetsGeometry.symmetric(horizontal: -20),
+          indicatorColor: Colors.white,
+          labelColor: Colors.white,
+          unselectedLabelColor: Color(0xFFACACAC),
           tabs: [
             Tab(icon: Icon(Icons.grid_on, color: const Color(0xFFACACAC), size: 27)),
             Tab(
@@ -202,10 +208,41 @@ Widget _aa() {
             Tab(icon: Icon(Icons.person_pin_outlined, color: const Color(0xFFACACAC), size: 27)),
           ],
         ),
-        Expanded(
-          child: TabBarView(children: PostsGrid(), ReelsGrid(), RepostsGrid(), TaggedGrid()),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 3.1,
+          child: TabBarView(
+            children: [
+              _PostsGrid(),
+              _PostsGrid(),
+              _PostsGrid(),
+              _PostsGrid(),
+              // _ReelsGrid(),
+              // _RepostsGrid(),
+              // _TaggedGrid(),
+            ],
+          ),
         ),
       ],
     ),
+  );
+}
+
+Widget _PostsGrid() {
+  return GridView.builder(
+    // 🌟 AS DUAS LINHAS MILAGROSAS QUE RESOLVEM O TRAVAMENTO:
+    shrinkWrap: true, // 1. Força o Grid a ocupar apenas o tamanho dos itens dele, sem infinito
+    physics:
+        const NeverScrollableScrollPhysics(), // 2. Desativa a rolagem própria do Grid (quem rola é a tela toda)
+
+    itemCount: 12,
+    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: 3,
+      crossAxisSpacing: 1.5,
+      mainAxisSpacing: 2,
+      childAspectRatio: 0.63,
+    ),
+    itemBuilder: (context, index) {
+      return Image.network("https://picsum.photos/800?random=$index", fit: BoxFit.cover);
+    },
   );
 }
