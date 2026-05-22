@@ -3,6 +3,7 @@ import 'package:instagram_app/models/post_photo.dart';
 import 'package:instagram_app/models/users_model.dart';
 import 'dart:convert';
 import 'package:instagram_app/models/post_model.dart';
+import 'package:instagram_app/models/video_model/videoModel.dart';
 
 class ApiService {
   final String _url = 'https://jsonplaceholder.typicode.com/posts?_limit=10';
@@ -50,6 +51,37 @@ class ApiService {
       }
     } catch (e) {
       throw Exception("Falha na coneção");
+    }
+  }
+}
+
+class VideoService {
+  // 🌟 NOVO LINK ALTERNATIVO 100% ATIVO E ONLINE AGORA
+  final String _ApiUrl = "https://api.jsonsilo.com/public/4bd081be-8b29-4d64-ad16-5221b6a18b76";
+
+  Future<List<Video>> fetchInstagramVideo() async {
+    try {
+      // 1. Faz a chamada HTTP do tipo GET para o site
+      final response = await http.get(Uri.parse(_ApiUrl));
+
+      // 2. Se o status for 200 (Sucesso!)
+      if (response.statusCode == 200) {
+        // 🌟 CORREÇÃO AQUI: Como a API retorna um objeto {}, decodificamos primeiro como Map
+        final Map<String, dynamic> decodedData = json.decode(utf8.decode(response.bodyBytes));
+
+        // Pegamos a lista que está guardada dentro da chave 'videos'
+        final List<dynamic> listaDeVideosJson = decodedData['videos'] ?? [];
+
+        // Transformamos cada item da lista do JSON em um objeto do seu modelo Video
+        return listaDeVideosJson.map((item) => Video.fromJson(item)).toList();
+      } else {
+        print("Erro no Servidor: Código ${response.statusCode} - ${response.body}");
+        throw Exception("Erro ao carregar Video da Api");
+      }
+    } catch (e, stackTrace) {
+      print("Erro no Service: $e");
+      print("Erro no StackTrace: $stackTrace");
+      return []; // Retorna uma lista vazia se der ruim (ex: sem internet)
     }
   }
 }
