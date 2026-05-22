@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_app/models/post_model.dart';
 import 'package:instagram_app/models/users_model.dart';
+import 'package:instagram_app/models/video_model/videoModel.dart';
 import 'package:instagram_app/services/api_service.dart';
 
 class PostProvider extends ChangeNotifier {
@@ -43,5 +44,30 @@ class PostProvider extends ChangeNotifier {
       _loading = false;
       notifyListeners();
     }
+  }
+}
+
+class PostProviderVideo with ChangeNotifier {
+  final VideoService _videoService = VideoService(); // Instancia o serviço que criamos
+
+  List<Video> _videoProfile = []; // Lista privada que vai guardar os vídeos da API
+
+  bool _isLoading = false; // Variável para controlar o loading (o círculo de carregamento na tela)
+
+  // Getters para a tela conseguir ler os dados sem alterá-los direto
+  List<Video> get videoProfile => _videoProfile;
+  bool get isLoading => _isLoading;
+
+  // 🌟 FUNÇÃO PRINCIPAL: Vai ser chamada ao abrir a tela
+  Future<void> loadingVideoService() async {
+    _isLoading = true;
+    notifyListeners(); // Avisa a tela para mostrar o CircularProgressIndicator
+
+    _videoProfile = (await _videoService.fetchInstagramVideo())
+        .cast<Video>(); // Busca os dados lá do service
+    // _videosDoPerfil = await _videoService.fetchInstagramVideos(); Esse é o que o chat deu
+
+    _isLoading = false;
+    notifyListeners(); // Avisa a tela que os dados chegaram para renderizar o Grid!
   }
 }
