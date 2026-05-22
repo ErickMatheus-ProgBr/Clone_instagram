@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:instagram_app/providers/model_provider.dart';
 import 'package:instagram_app/providers/post_provider.dart';
 import 'package:instagram_app/screens/homeScreen.dart';
@@ -13,6 +12,7 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (_) => NavigatorProvider()),
         ChangeNotifierProvider(create: (_) => PostProvider()),
+        ChangeNotifierProvider(create: (_) => PostProviderVideo()),
       ],
       child: MyApp(),
     ),
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false, //
+      debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
         "/": (context) => const Loginscreen(),
