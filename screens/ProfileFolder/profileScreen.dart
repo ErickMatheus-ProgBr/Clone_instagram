@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_app/models/video_model/videoModel.dart';
 import 'package:instagram_app/providers/post_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -11,6 +12,16 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
+  void initState() {
+    super.initState();
+    // Dispara a busca na API logo após o primeiro frame da tela ser desenhado
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        context.read<PostProviderVideo>().loadingVideoService();
+      }
+    });
+  }
+
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final navigationProviderProfile = context.watch<PostProvider>();
@@ -212,10 +223,11 @@ Widget _buildProfileTabs(BuildContext context) {
           height: MediaQuery.of(context).size.height * 3.1,
           child: TabBarView(
             children: [
-              _PostsGrid(),
-              _PostsGrid(),
-              _PostsGrid(),
-              _PostsGrid(),
+              _PostsGrid(context),
+              _PostsGrid(context),
+              _PostsGrid(context),
+              _PostsGrid(context),
+
               // _ReelsGrid(),
               // _RepostsGrid(),
               // _TaggedGrid(),
@@ -227,22 +239,52 @@ Widget _buildProfileTabs(BuildContext context) {
   );
 }
 
-Widget _PostsGrid() {
-  return GridView.builder(
-    // 🌟 AS DUAS LINHAS MILAGROSAS QUE RESOLVEM O TRAVAMENTO:
-    shrinkWrap: true, // 1. Força o Grid a ocupar apenas o tamanho dos itens dele, sem infinito
-    physics:
-        const NeverScrollableScrollPhysics(), // 2. Desativa a rolagem própria do Grid (quem rola é a tela toda)
+Widget _PostsGrid(BuildContext context) {
+  // Lendo o provedor usando o context que passamos por parâmetro
+  final provider = Provider.of<PostProviderVideo>(context);
 
-    itemCount: 12,
+  return GridView.builder(
+    shrinkWrap: true,
+    physics: const NeverScrollableScrollPhysics(),
+    itemCount: provider.videoProfile.length,
     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
       crossAxisCount: 3,
-      crossAxisSpacing: 1.5,
+      crossAxisSpacing: 2,
       mainAxisSpacing: 2,
-      childAspectRatio: 0.63,
+      childAspectRatio: 1.0, // Quadrado perfeito igual ao Insta real
     ),
     itemBuilder: (context, index) {
-      return Image.network("https://picsum.photos/800?random=$index", fit: BoxFit.cover);
+      final Video video = provider.videoProfile[index];
+
+      return GestureDetector(
+        onTap: () {
+          print("Clicou no post: ${video.title} ;- Curtidas: ${video.likes}");
+        },
+        child: Image.network(
+          video.thumbnailUrl,
+          fit: BoxFit.cover,
+          errorBuilder: (context, error, stackTrace) {
+            return Container(color: Colors.grey[900]);
+          },
+        ),
+      );
     },
   );
 }
+
+// Widget _ReelsGrid() {
+//   return GridView.builder(
+//     shrinkWrap: true,
+//     physics: const NeverScrollableScrollPhysics(),
+//     itemCount: 6,
+//     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+//       crossAxisCount: 2,
+//       crossAxisSpacing: 1.5,
+//       mainAxisSpacing: 1,
+//       childAspectRatio: 0.63,
+//     ),
+//     itemBuilder: (context, index) {
+//       return Image.network("https://picsum.photos/100?random=$index", fit: BoxFit.cover);
+//     },
+//   );
+// }
