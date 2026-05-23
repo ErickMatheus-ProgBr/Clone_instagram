@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_app/screens/profile_screen.dart/drawerCustom.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -31,25 +32,7 @@ class ProfileScreen extends StatelessWidget {
           icon: Icon(Icons.add, color: Colors.white, size: 34),
         ),
       ),
-      endDrawer: Drawer(
-        // Tirar o padding padrão para o conteúdo colar nas bordas
-        child: SizedBox(
-          width: screenWidth, // <--- Aqui ele ganha 100% da largura da tela!
-          child: Column(
-            children: [
-              // _BuilderDrawerAppBar(context),
-              Expanded(
-                child: ListView(
-                  children: [
-                    // _builderDrawerItem(Icon(Icons.settings, "Configurações e privacidades")),
-                    // _builderDrawerItem(Icon(Icons.save_alt_sharp, "Salvos")),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      endDrawer: Drawer(child: DrawerCustom()),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
