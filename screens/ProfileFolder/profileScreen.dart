@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_app/models/video_model/videoModel.dart';
 import 'package:instagram_app/providers/post_provider.dart';
+import 'package:instagram_app/screens/ProfileFolder/drawer_custom.dart';
 import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -50,25 +51,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           icon: Icon(Icons.add, color: Colors.white, size: 34),
         ),
       ),
-      endDrawer: Drawer(
-        // Tirar o padding padrão para o conteúdo colar nas bordas
-        child: SizedBox(
-          width: screenWidth, // <--- Aqui ele ganha 100% da largura da tela!
-          child: Column(
-            children: [
-              // _BuilderDrawerAppBar(context),
-              Expanded(
-                child: ListView(
-                  children: [
-                    // _builderDrawerItem(Icon(Icons.settings, "Configurações e privacidades")),
-                    // _builderDrawerItem(Icon(Icons.save_alt_sharp, "Salvos")),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      endDrawer: DrawerCustom(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),

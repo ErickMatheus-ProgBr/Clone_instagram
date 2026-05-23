@@ -56,7 +56,6 @@ class ApiService {
 }
 
 class VideoService {
-  // 🌟 NOVO LINK ALTERNATIVO 100% ATIVO E ONLINE AGORA
   final String _ApiUrl = "https://api.jsonsilo.com/public/4bd081be-8b29-4d64-ad16-5221b6a18b76";
 
   Future<List<Video>> fetchInstagramVideo() async {
