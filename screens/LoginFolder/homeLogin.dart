@@ -48,7 +48,7 @@ class _LoginscreenState extends State<Loginscreen> {
       if (userCredential.user != null) {
         // pushReplacement elimina a tela de login da memória.
         // Se o usuário clicar em "voltar" no Android, ele não consegue voltar pra tela de login.
-        Navigator.pushReplacementNamed(context, '/home');
+        Navigator.pushReplacementNamed(context, '/homeScreen');
       }
     } on FirebaseAuthException catch (e) {
       // 🧠 APRENDIZADO: O Firebase te devolve erros com códigos textuais fixos (e.code)
@@ -206,37 +206,45 @@ class _LoginscreenState extends State<Loginscreen> {
                 ),
 
                 ElevatedButton(
-                  onPressed: () {
-                    _login();
-                  },
+                  // Se _isLoading for verdadeiro, passamos 'null' para desativar o botão visualmente.
+                  // Se for falso, passamos a nossa função _login.
+                  onPressed: _isLoading
+                      ? null
+                      : () {
+                          _login();
+                        },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColorsLogin.btnEnter,
                     minimumSize: Size(defaultWidth * 1.03, 48),
+                    // Altera a cor de fundo do botão automaticamente quando ele estiver desativado/carregando
+                    disabledBackgroundColor: AppColorsLogin.btnEnter.withOpacity(0.5),
                   ),
-                  child: GestureDetector(
-                    onTap: _isLoading
-                        ? null
-                        : _login, // Se estiver carregando, o botão fica desativado (null)
-                    child: Container(
-                      // ... suas configurações de tamanho e cor do botão ...
-                      child: Center(
-                        child: _isLoading
-                            ? const CircularProgressIndicator(
-                                color: Colors.white,
-                              ) // 🔄 Mostra a rodinha se estiver logando
-                            : const Text(
-                                "Entrar",
-                                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                              ), // Mostra o texto normal
-                      ),
-                    ),
-                  ),
+                  child: _isLoading
+                      ? const SizedBox(
+                          width: 24,
+                          height: 24,
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 2.5, // Deixa a rodinha mais fina e elegante
+                          ),
+                        )
+                      : const Text(
+                          "Entrar",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
                 ),
 
                 const SizedBox(height: 7),
 
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.pushNamed(context, "/resetPassword");
+                  },
                   child: Text(
                     "Esqueceu a senha?",
                     style: TextStyle(
