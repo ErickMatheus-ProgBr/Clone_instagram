@@ -66,7 +66,9 @@ class _ResetPasswordState extends State<ResetPassword> {
 
               // BOTÃO
               ElevatedButton(
-                onPressed: () {}, //
+                onPressed: () {
+                  Navigator.pushNamed(context, "/verifyEmail");
+                }, //
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromARGB(255, 28, 135, 223),
                   foregroundColor: Colors.white,
