@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart'; // 🌟 Importa o núcleo do Firebase
 import 'package:instagram_app/screens/LoginFolder/resetPassword.dart';
+import 'package:instagram_app/screens/LoginFolder/verifyEmail.dart';
 import 'firebase_options.dart'; // 🌟 O arquivo secreto que o CLI gerou para você!
 import 'package:instagram_app/providers/model_provider.dart';
 import 'package:instagram_app/providers/post_provider.dart';
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
         "/homeScreen": (context) => const Homescreen(),
         "/postDetail": (context) => const Postdetailscreen(),
         "/resetPassword": (context) => const ResetPassword(),
-        "/veryfyEmail": (context) => const ResetPassword(),
+        "/veryfyEmail": (context) => const VerifyEmail(),
       },
     );
   }
