@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
         "/homeScreen": (context) => const Homescreen(),
         "/postDetail": (context) => const Postdetailscreen(),
         "/resetPassword": (context) => const ResetPassword(),
-        "/veryfyEmail": (context) => const VerifyEmail(),
+        "/verifyEmail": (context) => const VerifyEmail(),
       },
     );
   }
