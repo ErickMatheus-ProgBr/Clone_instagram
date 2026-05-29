@@ -151,6 +151,7 @@ class _LoginscreenState extends State<Loginscreen> {
                         horizontal: ScreenSizeLogin.screenWidth * 0.03,
                       ),
                       hintText: "Nome de usúario, email ou celular",
+                      counterText: "",
                       hintStyle: TextStyle(
                         color: AppColorsLogin.genericWhite,
                         fontSize: 15,
@@ -171,6 +172,8 @@ class _LoginscreenState extends State<Loginscreen> {
                   ),
                 ),
 
+                SizedBox(height: 17),
+
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: ScreenSizeLogin.screenWidth * 0.02),
                   child: TextField(
@@ -185,7 +188,7 @@ class _LoginscreenState extends State<Loginscreen> {
                         horizontal: ScreenSizeLogin.screenWidth * 0.03,
                       ),
                       hintText: "Senha",
-
+                      counterText: "",
                       hintStyle: TextStyle(
                         color: AppColorsLogin.genericWhite,
                         fontSize: 15,
@@ -204,6 +207,8 @@ class _LoginscreenState extends State<Loginscreen> {
                     ),
                   ),
                 ),
+
+                const SizedBox(height: 17),
 
                 ElevatedButton(
                   // Se _isLoading for verdadeiro, passamos 'null' para desativar o botão visualmente.
