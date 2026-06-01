@@ -27,7 +27,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          margin: EdgeInsets.symmetric(vertical: 26, horizontal: 30),
+          margin: EdgeInsets.symmetric(vertical: 30, horizontal: 10),
           child: Column(
             // mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -96,6 +96,61 @@ class _VerifyEmailState extends State<VerifyEmail> {
                           ),
                         );
                       }),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 15),
+                      child: Row(
+                        children: [
+                          Text(
+                            "Não recebeu o código? ",
+                            style: TextStyle(color: Colors.white, fontSize: 15),
+                          ),
+                          Text(
+                            "Reenviar código",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(255, 28, 135, 223),
+                        foregroundColor: Colors.white,
+                        padding: EdgeInsets.symmetric(horizontal: 130),
+                        elevation: 5,
+                        minimumSize: Size(200, 42),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadiusGeometry.circular(12),
+                        ),
+                      ),
+                      child: Text("Confirmar", style: TextStyle(fontSize: 17)),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 7),
+                child: Column(
+                  children: [
+                    Text(
+                      "Precisa de ajuda com o código?",
+                      style: TextStyle(color: const Color(0xFF858585), fontSize: 14.7),
+                    ),
+                    TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        "Entrar em contato com o suporte",
+                        style: TextStyle(
+                          color: const Color.fromARGB(255, 182, 182, 182),
+                          height: -1.2,
+                          fontSize: 15,
+                        ),
+                      ),
                     ),
                   ],
                 ),
