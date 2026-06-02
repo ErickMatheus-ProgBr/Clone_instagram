@@ -10,6 +10,6 @@ class Chargepassword extends StatefulWidget {
 class _ChargepasswordState extends State<Chargepassword> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(backgroundColor: Colors.white);
   }
 }

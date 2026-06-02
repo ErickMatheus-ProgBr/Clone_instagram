@@ -121,7 +121,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                     ElevatedButton(
                       onPressed: () {
                         Navigator.pop(context);
-                        // Navigator.pushNamed(context, )
+                        Navigator.pushNamed(context, '/newPassword');
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromARGB(255, 28, 135, 223),
