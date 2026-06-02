@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class VerifyEmail extends StatefulWidget {
   const VerifyEmail({super.key});
@@ -40,7 +41,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                       "Insira o Código", //
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 27,
+                        fontSize: 28,
                         fontWeight: FontWeight.bold,
                       ), //
                     ),
@@ -49,7 +50,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                     Text(
                       "Enviamos um código de 6 digitos para Digite-o abaixo.",
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, fontSize: 16),
+                      style: TextStyle(color: Colors.white, fontSize: 16.4),
                     ),
 
                     const SizedBox(height: 30),
@@ -103,14 +104,15 @@ class _VerifyEmailState extends State<VerifyEmail> {
                         children: [
                           Text(
                             "Não recebeu o código? ",
-                            style: TextStyle(color: Colors.white, fontSize: 15),
+                            style: TextStyle(color: Colors.white, fontSize: 15.4, wordSpacing: 1.3),
                           ),
                           Text(
                             "Reenviar código",
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
-                              fontSize: 15,
+                              fontSize: 15.8,
+                              wordSpacing: 2,
                             ),
                           ),
                         ],
@@ -139,16 +141,25 @@ class _VerifyEmailState extends State<VerifyEmail> {
                   children: [
                     Text(
                       "Precisa de ajuda com o código?",
-                      style: TextStyle(color: const Color(0xFF858585), fontSize: 14.7),
+                      style: TextStyle(
+                        color: const Color.fromARGB(255, 158, 158, 158),
+                        fontSize: 15,
+                      ),
                     ),
-                    TextButton(
-                      onPressed: () {},
+
+                    const SizedBox(height: 5),
+                    InkWell(
+                      onTap: () async {
+                        final Uri url = Uri.parse('https://help.instagram.com/');
+
+                        await launchUrl(url, mode: LaunchMode.externalApplication);
+                      },
                       child: Text(
                         "Entrar em contato com o suporte",
                         style: TextStyle(
-                          color: const Color.fromARGB(255, 182, 182, 182),
-                          height: -1.2,
-                          fontSize: 15,
+                          color: const Color.fromARGB(255, 190, 190, 190),
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
