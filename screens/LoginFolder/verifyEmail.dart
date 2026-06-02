@@ -119,7 +119,10 @@ class _VerifyEmailState extends State<VerifyEmail> {
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context);
+                        // Navigator.pushNamed(context, )
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromARGB(255, 28, 135, 223),
                         foregroundColor: Colors.white,

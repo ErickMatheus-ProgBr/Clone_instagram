@@ -44,6 +44,7 @@ class MyApp extends StatelessWidget {
         "/postDetail": (context) => const Postdetailscreen(),
         "/resetPassword": (context) => const ResetPassword(),
         "/verifyEmail": (context) => const VerifyEmail(),
+        // "/newPassword" : (context) => const
       },
     );
   }
