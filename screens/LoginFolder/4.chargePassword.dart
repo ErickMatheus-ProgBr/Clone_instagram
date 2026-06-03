@@ -12,16 +12,25 @@ class _ChargepasswordState extends State<Chargepassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Redefinir sua Senha"), centerTitle: true, leading: BackButton()),
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        toolbarHeight: 70,
+        title: Text(
+          "Redefinir sua Senha",
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24),
+        ),
+        centerTitle: true,
+        leading: BackButton(color: Colors.white),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
       body: Container(
         width: double.infinity,
         height: double.infinity,
-
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.bottomRight,
             end: Alignment.centerLeft,
-
             colors: [
               Color.fromARGB(255, 121, 76, 151),
               Color.fromARGB(255, 161, 76, 76),
@@ -29,7 +38,20 @@ class _ChargepasswordState extends State<Chargepassword> {
             ],
           ),
         ),
-        child: Container(decoration: BoxDecoration(color: Colors.black.withOpacity(0.65))),
+        child: Container(
+          decoration: BoxDecoration(color: Colors.black.withOpacity(0.65)),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  CircleAvatar(radius: 42, backgroundImage: AssetImage("assets/images/erick.png")),
+                ],
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
