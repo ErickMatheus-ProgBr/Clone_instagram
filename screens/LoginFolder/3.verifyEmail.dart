@@ -120,7 +120,6 @@ class _VerifyEmailState extends State<VerifyEmail> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.pop(context);
                         Navigator.pushNamed(context, '/newPassword');
                       },
                       style: ElevatedButton.styleFrom(

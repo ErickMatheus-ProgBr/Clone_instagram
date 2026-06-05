@@ -67,7 +67,6 @@ class _ResetPasswordState extends State<ResetPassword> {
               // BOTÃO
               ElevatedButton(
                 onPressed: () {
-                  Navigator.pop(context);
                   Navigator.pushNamed(context, "/verifyEmail");
                 }, //
                 style: ElevatedButton.styleFrom(

@@ -247,7 +247,6 @@ class _LoginscreenState extends State<Loginscreen> {
 
                 TextButton(
                   onPressed: () {
-                    Navigator.pop(context);
                     Navigator.pushNamed(context, "/resetPassword");
                   },
                   child: Text(
