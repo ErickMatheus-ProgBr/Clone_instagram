@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_app/services/auth_services.dart';
 import 'package:instagram_app/themeColors/appColors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:instagram_app/core/utils/mediaQuery.dart';
 import 'package:firebase_auth/firebase_auth.dart'; // 🌟 Importante para ler o Firebase
+import 'package:instagram_app/services/auth_services.dart';
 
 class Loginscreen extends StatefulWidget {
   const Loginscreen({super.key});
@@ -16,59 +18,41 @@ class _LoginscreenState extends State<Loginscreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  // 2. Instância do serviço de Autenticação
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  // 1. Primeiro, instancie o seu serviço no topo do estado da sua tela de login:
+  final AuthService _authService = AuthService();
 
   // 3. Variável para controlar o desenho do carregamento na tela
   bool _isLoading = false;
 
-  // 4. Função assíncrona que faz o envio dos dados
+  // Função reestruturada
   Future<void> _login() async {
-    // .trim() remove espaços em branco que o usuário pode ter digitado sem querer no fim do email
     String email = _emailController.text.trim();
     String password = _passwordController.text.trim();
 
     if (email.isEmpty || password.isEmpty) {
-      _mostrarAlerta("Por favor, preencha todos os campos!");
+      _showAlert("Please fill in all fields!");
       return;
     }
 
     setState(() {
-      _isLoading = true; // Ativa a rodinha de carregamento
+      _isLoading = true;
     });
 
     try {
-      // 🚀 COMANDO DE LOGIN: O Flutter envia os dados e aguarda (await) a resposta da nuvem
-      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+      String result = await _authService.loginEmaiLPassword(email, password);
 
-      // Se a nuvem validou e retornou o usuário com sucesso:
-      if (userCredential.user != null) {
-        // pushReplacement elimina a tela de login da memória.
-        // Se o usuário clicar em "voltar" no Android, ele não consegue voltar pra tela de login.
-        Navigator.pushReplacementNamed(context, '/homeScreen');
+      if (result == "Success") {
+        // Se deu sucesso, navega para a Home eliminando o login da memória;
+        if (mounted) {
+          Navigator.pushReplacementNamed(context, "/homeScreen");
+        }
+      } else {
+        // Se retornou qualquer outra String, significa que é uma mensagem de erro  mapeada
+        _showAlert(result);
       }
-    } on FirebaseAuthException catch (e) {
-      // 🧠 APRENDIZADO: O Firebase te devolve erros com códigos textuais fixos (e.code)
-      // Mapeamos esses códigos para exibir mensagens amigáveis em português na tela.
-      String mensagemAmigavel = "Erro ao autenticar. Tente novamente.";
-
-      if (e.code == 'invalid-email') {
-        mensagemAmigavel = "O formato do e-mail digitado está incorreto.";
-      } else if (e.code == 'user-not-found') {
-        mensagemAmigavel = "Nenhum usuário cadastrado com este e-mail.";
-      } else if (e.code == 'wrong-password') {
-        mensagemAmigavel = "Senha incorreta. Verifique seus dados.";
-      }
-
-      _mostrarAlerta(mensagemAmigavel);
     } catch (e) {
-      _mostrarAlerta("Ocorreu um erro inesperado: $e");
+      _showAlert("Unexpected error processing login.");
     } finally {
-      // O bloco 'finally' roda OBRIGATORIAMENTE tanto se der certo quanto se der erro.
-      // Excelente local para desligar loaders.
       if (mounted) {
         setState(() {
           _isLoading = false;
@@ -77,19 +61,29 @@ class _LoginscreenState extends State<Loginscreen> {
     }
   }
 
-  void _mostrarAlerta(String mensagem) {
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text(mensagem), backgroundColor: Colors.redAccent));
-  }
-
-  @override
-  void dispose() {
-    // 🧠 APRENDIZADO: Sempre limpe os controladores quando a tela fechar
-    // para evitar vazamento de memória (Memory Leak) no celular!
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
+  void _showAlert(String message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: const Color(0xFF1E1E1E),
+          title: const Text(
+            "System Notification",
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          content: Text(message, style: const TextStyle(color: Colors.grey)),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text(
+                "OK",
+                style: TextStyle(color: Color(0xFF0095F6), fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -247,6 +241,7 @@ class _LoginscreenState extends State<Loginscreen> {
 
                 TextButton(
                   onPressed: () {
+                    Navigator.pop(context);
                     Navigator.pushNamed(context, "/resetPassword");
                   },
                   child: Text(
