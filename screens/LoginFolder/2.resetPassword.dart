@@ -11,17 +11,24 @@ class _ResetPasswordState extends State<ResetPassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+        ),
+      ),
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
         //(Para a tela rolar se o teclado subir)
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 80),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
           child: Column(
             children: [
               // ICONE
               Icon(
                 Icons.lock_clock_outlined, //
-                color: Colors.white, //
+                color: Colors.white, //S
                 size: 55,
               ),
 
