@@ -28,7 +28,7 @@ class _ResetPasswordState extends State<ResetPassword> {
               // ICONE
               Icon(
                 Icons.lock_clock_outlined, //
-                color: Colors.white, //S
+                color: Colors.white, //
                 size: 55,
               ),
 
