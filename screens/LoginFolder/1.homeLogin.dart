@@ -39,7 +39,7 @@ class _LoginscreenState extends State<Loginscreen> {
     });
 
     try {
-      String result = await _authService.loginEmaiLPassword(email, password);
+      String result = await _authService.loginEmailPassword(email, password);
 
       if (result == "Success") {
         // Se deu sucesso, navega para a Home eliminando o login da memória;
