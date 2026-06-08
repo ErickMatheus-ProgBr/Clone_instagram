@@ -5,7 +5,7 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // FUNÇÃO DE LOGIN REATORADA (A sua lógica, agora organizada!);
-  Future<String> loginEmaiLPassword(String email, String password) async {
+  Future<String> loginEmailPassword(String email, String password) async {
     try {
       // O flutter envia os dados e guarda a resposta do Firebase
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
@@ -29,6 +29,29 @@ class AuthService {
       return "Erro ao autenticar: ${e.message}";
     } catch (e) {
       return "Ocorreu um erro inesperado: $e";
+    }
+  }
+
+  // 🌟 NOVA FUNÇÃO: ADICIONE ESTE BLOCO AQUI ABAIXO (Para a tela ResetPassword)
+  Future<String> enviarEmailDeRecuperacao(String email) async {
+    try {
+      // 🔍 Tentamos simular uma verificação criando um vínculo temporário.
+      // Se o e-mail NÃO existir, o Firebase joga direto um erro específico.
+      // Mas a forma mais segura e direta de disparar e pegar o erro real é tratando as exceções:
+
+      await _auth.sendPasswordResetEmail(email: email);
+      return "sucesso";
+    } on FirebaseAuthException catch (e) {
+      // O Firebase atualizado joga esses códigos se a proteção estiver desativada no console,
+      // ou se o e-mail for totalmente inválido:
+      if (e.code == 'invalid-email') {
+        return "O formato do e-mail digitado está incorreto.";
+      } else if (e.code == 'user-not-found') {
+        return "Nenhum usuário cadastrado com este e-mail.";
+      }
+      return "Erro: ${e.message}";
+    } catch (e) {
+      return "Erro inesperado: $e";
     }
   }
 }
