@@ -5,7 +5,7 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // FUNÇÃO DE LOGIN REATORADA (A sua lógica, agora organizada!);
-  Future<String> loginEmaiLPassword(String email, String password) async {
+  Future<String> loginEmailPassword(String email, String password) async {
     try {
       // O flutter envia os dados e guarda a resposta do Firebase
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
@@ -29,6 +29,21 @@ class AuthService {
       return "Erro ao autenticar: ${e.message}";
     } catch (e) {
       return "Ocorreu um erro inesperado: $e";
+    }
+  }
+
+  Future<String> enviarEmailDeRecuperacao(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+
+      return "sucesso";
+    } on FirebaseAuthException catch (e) {
+      print("CODE: ${e.code}");
+      print("MESSAGE: ${e.message}");
+
+      return "Erro: ${e.message}";
+    } catch (e) {
+      return "Erro inesperado: $e";
     }
   }
 }
