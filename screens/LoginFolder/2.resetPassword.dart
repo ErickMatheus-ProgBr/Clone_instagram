@@ -126,6 +126,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                           // 🚀 CHAMA O MÉTODO QUE VALIDA E ENVIA O LINK:
                           String resultado = await _authService.enviarEmailDeRecuperacao(email);
 
+                          print("RESULTADO: $resultado");
+
                           if (resultado == "sucesso") {
                             if (mounted) {
                               // 🔥 Agora sim! Se for sucesso pula direto sem pop-up chato nesta tela
