@@ -32,23 +32,15 @@ class AuthService {
     }
   }
 
-  // 🌟 NOVA FUNÇÃO: ADICIONE ESTE BLOCO AQUI ABAIXO (Para a tela ResetPassword)
   Future<String> enviarEmailDeRecuperacao(String email) async {
     try {
-      // 🔍 Tentamos simular uma verificação criando um vínculo temporário.
-      // Se o e-mail NÃO existir, o Firebase joga direto um erro específico.
-      // Mas a forma mais segura e direta de disparar e pegar o erro real é tratando as exceções:
-
       await _auth.sendPasswordResetEmail(email: email);
+
       return "sucesso";
     } on FirebaseAuthException catch (e) {
-      // O Firebase atualizado joga esses códigos se a proteção estiver desativada no console,
-      // ou se o e-mail for totalmente inválido:
-      if (e.code == 'invalid-email') {
-        return "O formato do e-mail digitado está incorreto.";
-      } else if (e.code == 'user-not-found') {
-        return "Nenhum usuário cadastrado com este e-mail.";
-      }
+      print("CODE: ${e.code}");
+      print("MESSAGE: ${e.message}");
+
       return "Erro: ${e.message}";
     } catch (e) {
       return "Erro inesperado: $e";
