@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_app/models/video_model/videoModel.dart';
 import 'package:instagram_app/providers/post_provider.dart';
-import 'package:instagram_app/screens/ProfileFolder/drawer_custom.dart';
+import 'package:instagram_app/screens/settings/settings_screen.dart';
 import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
