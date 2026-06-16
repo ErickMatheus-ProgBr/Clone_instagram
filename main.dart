@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart'; // 🌟 Importa o núcleo do 
 import 'package:instagram_app/screens/LoginFolder/4.chargePassword.dart';
 import 'package:instagram_app/screens/LoginFolder/2.resetPassword.dart';
 import 'package:instagram_app/screens/LoginFolder/3.verifyEmail.dart';
+import 'package:instagram_app/screens/LoginFolder/auth_check.dart';
 import 'firebase_options.dart'; // 🌟 O arquivo secreto que o CLI gerou para você!
 import 'package:instagram_app/providers/model_provider.dart';
 import 'package:instagram_app/providers/post_provider.dart';
@@ -10,6 +11,8 @@ import 'package:instagram_app/screens/homeScreen.dart';
 import 'package:instagram_app/screens/LoginFolder/1.homeLogin.dart';
 import 'package:instagram_app/screens/postDetailScreen.dart';
 import 'package:provider/provider.dart';
+import 'auth_check.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 void main() async {
   // 🧠 CONCEITO APRENDIZADO: WidgetsFlutterBinding
@@ -40,7 +43,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        "/": (context) => const Loginscreen(),
+        "/": (context) => const AuthCheck(),
         "/homeScreen": (context) => const Homescreen(),
         "/resetPassword": (context) => const ResetPassword(),
         "/postDetail": (context) => const Postdetailscreen(),
