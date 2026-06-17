@@ -7,17 +7,21 @@ class PrivacySection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final items = UsageData.getUsageItems(context);
+    final items = UsageData.getPrivacyItems(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          "Quem pode ver seus conteúdo",
-          style: TextStyle(fontSize: 14.5, fontWeight: FontWeight.bold, color: Colors.white),
+        Padding(
+          padding: const EdgeInsets.only(top: 16),
+          child: const Text(
+            "Quem pode ver seus conteúdo",
+            style: TextStyle(fontSize: 14.5, fontWeight: FontWeight.bold, color: Colors.white),
+          ),
         ),
         const SizedBox(height: 8),
 
         ...items.map((dynamicItem) => SettingsTile(item: dynamicItem)).toList(),
+        const SizedBox(height: 28),
       ],
     );
   }
