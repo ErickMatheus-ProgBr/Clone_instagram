@@ -52,7 +52,8 @@ class _HomescreenState extends State<Homescreen> {
         onTap: (index) => context.read<NavigatorProvider>().updateIndex(index),
         type: BottomNavigationBarType.fixed,
         backgroundColor: AppcolorsHomeScreen.backgroundColor,
-        unselectedItemColor: Colors.white,
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.grey,
 
         showSelectedLabels: false,
         showUnselectedLabels: false,
