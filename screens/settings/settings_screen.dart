@@ -30,6 +30,7 @@ class DrawerCustom extends StatelessWidget {
           children: [
             MySearchBar(), // Widget do campo de busca
             AccountSection(), // Widget do bloco "Sua Conta"
+            Divider(thickness: 2, color: Color(0xFF262626)),
             UsageSection(), // Widget do bloco "Como usar o Instagram"
             PrivacySection(), // Widget do bloco "Quem pode ver"
           ],
