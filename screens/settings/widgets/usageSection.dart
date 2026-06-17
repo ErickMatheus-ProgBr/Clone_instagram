@@ -12,7 +12,7 @@ class UsageSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          "Como você usa o instagram",
+          "Como você usa o Instagram",
           style: TextStyle(fontSize: 14.5, fontWeight: FontWeight.bold, color: Colors.white),
         ),
         const SizedBox(height: 8),
