@@ -49,7 +49,6 @@ class AccountSection extends StatelessWidget {
 
 Widget _accountCenter() {
   return Container(
-    margin: EdgeInsets.only(bottom: 10),
     padding: const EdgeInsets.symmetric(vertical: 8),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start, // Alinha o ícone no topo do texto

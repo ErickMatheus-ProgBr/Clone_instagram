@@ -12,10 +12,13 @@ class PrivacySection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 16),
-          child: const Text(
-            "Quem pode ver seus conteúdo",
-            style: TextStyle(fontSize: 14.5, fontWeight: FontWeight.bold, color: Colors.white),
+          padding: const EdgeInsets.only(top: 10),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: const Text(
+              "Quem pode ver seus conteúdo",
+              style: TextStyle(fontSize: 14.5, fontWeight: FontWeight.bold, color: Colors.white),
+            ),
           ),
         ),
         const SizedBox(height: 8),
