@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:instagram_app/providers/post_provider.dart';
 import 'package:instagram_app/models/post_model.dart';
 import 'package:instagram_app/themeColors/appColors.dart';
