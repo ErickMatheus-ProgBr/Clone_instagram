@@ -14,6 +14,12 @@ class DrawerCustom extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.black,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back_ios_new, color: Colors.white),
+        ),
         title: Text(
           "Configurações e atividade",
           style: TextStyle(
