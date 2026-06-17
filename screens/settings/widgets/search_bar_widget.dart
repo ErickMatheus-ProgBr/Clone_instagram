@@ -7,7 +7,7 @@ class MySearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 40,
-      margin: EdgeInsets.symmetric(horizontal: 11, vertical: 18),
+      margin: EdgeInsets.symmetric(horizontal: 11, vertical: 10),
       child: TextField(
         style: TextStyle(fontSize: 18.4, letterSpacing: 0.3, fontWeight: FontWeight.bold),
         decoration: InputDecoration(
