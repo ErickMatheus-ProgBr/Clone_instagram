@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_app/providers/model_provider.dart';
+import 'package:instagram_app/screens/Messages/messages_screen.dart';
 import 'package:instagram_app/screens/ProfileFolder/profileScreen.dart';
 import 'package:instagram_app/screens/rells_screens.dart';
 import 'package:instagram_app/screens/searchScreen.dart';
@@ -19,6 +20,7 @@ class _HomescreenState extends State<Homescreen> {
   final List<Widget> _navigatorBar = [
     FeedScreen(),
     RellsScreens(),
+    MessagesScreen(),
     Searchscreen(),
     ProfileScreen(),
     const Center(
