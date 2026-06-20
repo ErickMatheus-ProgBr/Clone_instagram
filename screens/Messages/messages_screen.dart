@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_app/screens/Messages/message_field.dart';
 import 'package:instagram_app/screens/Messages/notes_carousel.dart';
+import 'package:instagram_app/models/chat_model.dart';
 
 class MessagesScreen extends StatelessWidget {
   const MessagesScreen({super.key});
@@ -20,7 +22,8 @@ class MessagesScreen extends StatelessWidget {
       body: Column(
         children: [
           _searchDirect(),
-          NotesCarousel(), //
+          NotesCarousel(),
+          MessageField(), //
         ],
       ),
     );
