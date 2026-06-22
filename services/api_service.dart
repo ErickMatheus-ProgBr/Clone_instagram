@@ -16,11 +16,16 @@ class ApiService {
         List<dynamic> dataJson = jsonDecode(response.body);
         // Agora o PostModel.fromJson será reconhecido!
         return dataJson.map((item) => PostModel.fromJson(item)).toList();
+      } else if (response.statusCode == 404) {
+        print("Aviso: O arquivo de vídeo não foi encontrado no servidor.");
+        return []; // 🟢 RETORNA UMA LISTA VAZIA SE FOR 404
       } else {
-        throw Exception("Erro: ${response.statusCode}");
+        print("Erro no servidor: ${response.statusCode}");
+        return []; // 🟢 RETORNA UMA LISTA VAZIA SE FOR OUTRO ERRO
       }
     } catch (e) {
-      throw Exception("Falha na conexão");
+      print("Falha na conexão: $e");
+      return []; // 🟢 RETORNA UMA LISTA VAZIA SE CAIR NO CATCH
     }
   }
 
