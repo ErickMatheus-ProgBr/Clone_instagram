@@ -46,7 +46,7 @@ class _SearchscreenState extends State<Searchscreen> {
 
 Widget _builderSearchBar() {
   return Padding(
-    padding: const EdgeInsets.only(top: 50, left: 10, right: 10, bottom: 10),
+    padding: const EdgeInsets.only(top: 40, left: 10, right: 10, bottom: 10),
     child: Container(
       height: 63,
       decoration: BoxDecoration(
