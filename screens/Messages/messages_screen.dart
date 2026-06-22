@@ -8,18 +8,28 @@ class MessagesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(
+    // Vamos utilizar o GestureDetector para garantirmos que ao sair do textfield(ao clicar em qualquer lugar
+    // da tela, o foco do textfield nao apareça para o usúario)
+    return GestureDetector(
+      // 💡 Essa linha diz: "Preste atenção em qualquer clique, mesmo no fundo preto vazio"
+      behavior: HitTestBehavior.opaque,
+      // 💥 A MÁGICA: Quando clicar fora, esse comando tira o foco de qualquer TextField na hora!
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
         backgroundColor: Colors.black,
-        centerTitle: true,
-        title: Text(
-          "erick_matheus_16",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24.3),
+        appBar: AppBar(
+          backgroundColor: Colors.black,
+          centerTitle: true,
+          title: Text(
+            "erick_matheus_16",
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24.3),
+          ),
         ),
-      ),
 
-      body: Column(children: [_searchDirect(), NotesCarousel(), MessageField()]),
+        body: Column(children: [_searchDirect(), NotesCarousel(), MessageField()]),
+      ),
     );
   }
 }
@@ -34,18 +44,23 @@ Widget _searchDirect() {
         counterText: "",
         hintStyle: TextStyle(
           // Estilo do texto "Pesquisar";
-          color: Colors.white,
+          color: const Color(0xFF9B9898),
           fontSize: 15.9,
           fontWeight: FontWeight.bold,
           letterSpacing: 1,
         ),
         filled: true,
-        fillColor: const Color(0xFF5A5858),
+        fillColor: const Color(0xFF2B2A2A),
         hintText: "Pesquisar",
         prefixIcon: Padding(
           padding: EdgeInsetsGeometry.only(right: 3, left: 10),
-          child: Icon(Icons.search_sharp, color: Colors.white, size: 22),
+          child: Icon(Icons.search_sharp, color: const Color(0xFF9B9898), size: 22),
         ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: const BorderSide(color: Color.fromARGB(255, 97, 96, 96), width: 1.0),
+        ),
+
         prefixIconConstraints: BoxConstraints(
           minHeight: 10, // Altura mínima do espaço do ícone.
         ), // Define limites para o espaço ocupado pelo prefixIcon
