@@ -21,6 +21,8 @@ class NotesCarousel extends StatelessWidget {
           padding: const EdgeInsets.all(10.0),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
+            // Criação de Componentização por métodos, ou podemos dizer que é a
+            // Abordagem por Funções de UI
             children: [
               // Meu bilhete
               _buildNoteItem(
