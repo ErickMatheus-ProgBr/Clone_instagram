@@ -28,7 +28,13 @@ class MessagesScreen extends StatelessWidget {
           ),
         ),
 
-        body: Column(children: [_searchDirect(), NotesCarousel(), MessageField()]),
+        body: Column(
+          children: [
+            _searchDirect(),
+            NotesCarousel(), //
+            const Expanded(child: MessageField()),
+          ],
+        ),
       ),
     );
   }
