@@ -60,7 +60,7 @@ class PostProviderVideo with ChangeNotifier {
 
   // 🌟 FUNÇÃO PRINCIPAL: Vai ser chamada ao abrir a tela
   Future<void> loadingVideoService() async {
-    _isLoading = true;
+    _isLoading = false;
     notifyListeners(); // Avisa a tela para mostrar o CircularProgressIndicator
 
     _videoProfile = (await _videoService.fetchInstagramVideo())
