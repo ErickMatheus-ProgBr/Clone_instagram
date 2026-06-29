@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_app/models/video_model/videoModel.dart';
 import 'package:instagram_app/providers/post_provider.dart';
 import 'package:instagram_app/screens/settings/settings_screen.dart';
 import 'package:provider/provider.dart';
@@ -15,23 +14,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
-    // Dispara a busca na API logo após o primeiro frame da tela ser desenhado
+    // 🌟 ISSO DAQUI É O QUE ATIVA A CHAMADA DA API ASSIM QUE A TELA ABRE:
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) {
-        context.read<PostProviderVideo>().loadingVideoService();
-      }
+      context.read<PostProvider>().fetchPost();
     });
   }
 
+  @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final navigationProviderProfile = context.watch<PostProvider>();
-
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
         centerTitle: true,
-        title: Text(
+        title: const Text(
           "erick_matheus_16",
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 25),
         ),
@@ -39,25 +34,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
         actions: [
           Builder(
             builder: (context) => IconButton(
-              onPressed: () {
-                Scaffold.of(context).openEndDrawer();
-              },
-              icon: Icon(Icons.menu, color: Colors.white, size: 32),
+              onPressed: () => Scaffold.of(context).openEndDrawer(),
+              icon: const Icon(Icons.menu, color: Colors.white, size: 32),
             ),
           ),
         ],
         leading: IconButton(
           onPressed: () {},
-          icon: Icon(Icons.add, color: Colors.white, size: 34),
+          icon: const Icon(Icons.add, color: Colors.white, size: 34),
         ),
       ),
-      endDrawer: DrawerCustom(),
+      endDrawer: const DrawerCustom(), // Adicionado const se o Drawer permitir
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-
             children: [
               const SizedBox(height: 10),
               Row(
@@ -65,7 +57,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Stack(
                     clipBehavior: Clip.none,
                     children: [
-                      CircleAvatar(
+                      const CircleAvatar(
                         radius: 42,
                         backgroundImage: AssetImage("assets/images/erick.png"),
                       ),
@@ -74,11 +66,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         right: 3,
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Colors
+                                .blue, // Ajustado para azul clássico de "Adicionar Story" do Insta
                             shape: BoxShape.circle,
-                            border: Border.all(color: Colors.white, width: 0.2),
+                            border: Border.all(
+                              color: Colors.black,
+                              width: 2,
+                            ), // Borda preta para destacar do avatar
                           ),
-                          child: Icon(Icons.add),
+                          child: const Icon(Icons.add, color: Colors.white, size: 18),
                         ),
                       ),
                     ],
@@ -87,8 +83,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 28),
+                        const Padding(
+                          padding: EdgeInsets.only(left: 28),
                           child: Text(
                             "Erick Matheus",
                             style: TextStyle(
@@ -98,9 +94,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 7),
+                        const SizedBox(height: 7),
                         Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             _buildStatItem("5", "posts"),
                             _buildStatItem("315", "seguidores"),
@@ -112,25 +108,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ],
               ),
-
-              SizedBox(height: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 10),
-
-                  Text(
-                    "💻 | Engenheiro da Computação\n🗣️ | TikToker nas horas vagas\n📍 | Curitiba - PR",
-                    style: TextStyle(
-                      fontSize: 15.5,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
+              const SizedBox(height: 20),
+              const Text(
+                "💻 | Engenheiro da Computação\n🗣️ | TikToker nas horas vagas\n📍 | Curitiba - PR",
+                style: TextStyle(fontSize: 15.5, color: Colors.white, fontWeight: FontWeight.w500),
               ),
-              const SizedBox(height: 12),
-
+              const SizedBox(height: 2),
               Row(
                 children: [
                   _buildBtnProfile("Editar"),
@@ -138,8 +121,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   _buildBtnProfile("Compartilhar perfil"),
                 ],
               ),
-              const SizedBox(height: 12),
-
+              const SizedBox(height: 6),
               _buildProfileTabs(context),
             ],
           ),
@@ -155,12 +137,12 @@ Widget _buildStatItem(String count, String label) {
     children: [
       Text(
         count,
-        style: TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold),
+        style: const TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold),
       ),
-      SizedBox(height: 1, width: 95),
+      const SizedBox(height: 2),
       Text(
         label,
-        style: TextStyle(color: Colors.white, fontSize: 15.7, fontWeight: FontWeight.w500),
+        style: const TextStyle(color: Colors.grey, fontSize: 14, fontWeight: FontWeight.w400),
       ),
     ],
   );
@@ -170,14 +152,23 @@ Widget _buildBtnProfile(String label) {
   return Expanded(
     child: FilledButton(
       style: FilledButton.styleFrom(
-        minimumSize: Size(0, 33),
-        backgroundColor: const Color(0xFF424242),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(9)),
+        minimumSize: const Size(0, 35),
+        backgroundColor: const Color(
+          0xFF262626,
+        ), // Cor cinza oficial do botão do Insta no tema escuro
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(
+            8,
+          ), // 🟢 CORRIGIDO: Removido o BorderRadiusGeometry incorreto
+        ),
       ),
       onPressed: () {
-        print("Clique no botão 'Editar'");
+        print("Clique no botão: $label");
       },
-      child: Text(label, style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+      child: Text(
+        label,
+        style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
+      ),
     ),
   );
 }
@@ -188,32 +179,47 @@ Widget _buildProfileTabs(BuildContext context) {
     child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        TabBar(
-          indicatorPadding: EdgeInsetsGeometry.symmetric(horizontal: -20),
+        const TabBar(
           indicatorColor: Colors.white,
           labelColor: Colors.white,
           unselectedLabelColor: Color(0xFFACACAC),
           tabs: [
-            Tab(icon: Icon(Icons.grid_on, color: const Color(0xFFACACAC), size: 27)),
-            Tab(
-              icon: Icon(Icons.movie_creation_outlined, color: const Color(0xFFACACAC), size: 27),
-            ),
-            Tab(icon: Icon(Icons.repeat, color: const Color(0xFFACACAC), size: 27)),
-            Tab(icon: Icon(Icons.person_pin_outlined, color: const Color(0xFFACACAC), size: 27)),
+            Tab(icon: Icon(Icons.grid_on, size: 24)), // 1ª Aba: Seus Posts da API
+            Tab(icon: Icon(Icons.movie_creation_outlined, size: 24)), // 2ª Aba: Reels (Fica limpa)
+            Tab(icon: Icon(Icons.repeat, size: 24)), // 3ª Aba: Republicados (Fica limpa)
+            Tab(icon: Icon(Icons.person_pin_outlined, size: 24)), // 4ª Aba: Marcações (Fica limpa)
           ],
         ),
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 3.1,
-          child: TabBarView(
-            children: [
-              _PostsGrid(context),
-              _PostsGrid(context),
-              _PostsGrid(context),
-              _PostsGrid(context),
+        const SizedBox(height: 0),
 
-              // _ReelsGrid(),
-              // _RepostsGrid(),
-              // _TaggedGrid(),
+        // 🟢 Ajustamos para expandir o conteúdo baseado no grid sem travar o scroll do singlechildscrollview
+        SizedBox(
+          height: 550, // Altura calculada para exibir as fotos sem sumir da tela
+          child: TabBarView(
+            physics: const NeverScrollableScrollPhysics(), // Evita conflito ao arrastar para o lado
+            children: [
+              // ⭐ APENAS A PRIMEIRA ABA CHAMA O SEU GRID DINÂMICO
+              _postsGrid(context),
+
+              // As outras três abas exibem textos de conteúdo vazio conforme você pediu
+              const Center(
+                child: Text(
+                  "Nenhum vídeo do Reels encontrado",
+                  style: TextStyle(color: Colors.grey, fontSize: 15),
+                ),
+              ),
+              const Center(
+                child: Text(
+                  "Nenhum post republicado",
+                  style: TextStyle(color: Colors.grey, fontSize: 15),
+                ),
+              ),
+              const Center(
+                child: Text(
+                  "Nenhuma marcação encontrada",
+                  style: TextStyle(color: Colors.grey, fontSize: 15),
+                ),
+              ),
             ],
           ),
         ),
@@ -222,52 +228,29 @@ Widget _buildProfileTabs(BuildContext context) {
   );
 }
 
-Widget _PostsGrid(BuildContext context) {
-  // Lendo o provedor usando o context que passamos por parâmetro
-  final provider = Provider.of<PostProviderVideo>(context);
+Widget _postsGrid(BuildContext context) {
+  final provider = Provider.of<PostProvider>(context);
+
+  if (provider.loading) {
+    return const Center(child: CircularProgressIndicator());
+  }
+
+  if (provider.posts.isEmpty) {
+    return const Center(child: Text("Nenhum post encontrado"));
+  }
 
   return GridView.builder(
-    shrinkWrap: true,
-    physics: const NeverScrollableScrollPhysics(),
-    itemCount: provider.videoProfile.length,
+    itemCount: provider.posts.length,
     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
       crossAxisCount: 3,
-      crossAxisSpacing: 2,
+      crossAxisSpacing: 1,
       mainAxisSpacing: 2,
-      childAspectRatio: 1.0, // Quadrado perfeito igual ao Insta real
     ),
+    physics: const BouncingScrollPhysics(),
     itemBuilder: (context, index) {
-      final Video video = provider.videoProfile[index];
+      final post = provider.posts[index];
 
-      return GestureDetector(
-        onTap: () {
-          print("Clicou no post: ${video.title} ;- Curtidas: ${video.likes}");
-        },
-        child: Image.network(
-          video.thumbnailUrl,
-          fit: BoxFit.cover,
-          errorBuilder: (context, error, stackTrace) {
-            return Container(color: Colors.grey[900]);
-          },
-        ),
-      );
+      return Image.network(post.imageUrl!, fit: BoxFit.cover);
     },
   );
 }
-
-// Widget _ReelsGrid() {
-//   return GridView.builder(
-//     shrinkWrap: true,
-//     physics: const NeverScrollableScrollPhysics(),
-//     itemCount: 6,
-//     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//       crossAxisCount: 2,
-//       crossAxisSpacing: 1.5,
-//       mainAxisSpacing: 1,
-//       childAspectRatio: 0.63,
-//     ),
-//     itemBuilder: (context, index) {
-//       return Image.network("https://picsum.photos/100?random=$index", fit: BoxFit.cover);
-//     },
-//   );
-// }
