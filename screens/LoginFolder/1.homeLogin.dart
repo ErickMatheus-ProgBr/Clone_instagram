@@ -3,8 +3,6 @@ import 'package:instagram_app/services/auth_services.dart';
 import 'package:instagram_app/themeColors/appColors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:instagram_app/core/utils/media_query.dart';
-import 'package:firebase_auth/firebase_auth.dart'; // 🌟 Importante para ler o Firebase
-import 'package:instagram_app/services/auth_services.dart';
 
 class Loginscreen extends StatefulWidget {
   const Loginscreen({super.key});
