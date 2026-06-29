@@ -61,8 +61,8 @@ class ApiService {
 }
 
 class VideoService {
-  final String _ApiUrl = "https://api.jsonsilo.com/public/4bd081be-8b29-4d64-ad16-5221b6a18b76";
-
+  final String _ApiUrl =
+      "https://api.mockfly.dev/mocks/953cb48b-3d61-4648-936d-1bf90df21f42/videos";
   Future<List<Video>> fetchInstagramVideo() async {
     try {
       // 1. Faz a chamada HTTP do tipo GET para o site
