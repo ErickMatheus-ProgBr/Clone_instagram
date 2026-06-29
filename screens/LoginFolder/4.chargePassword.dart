@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:instagram_app/core/utils/media_query.dart';
 
 class Chargepassword extends StatefulWidget {
