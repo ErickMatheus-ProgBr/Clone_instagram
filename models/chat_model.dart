@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 class ChatModel {
   final String nome;
   final String ultimaMensagem;
