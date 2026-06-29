@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:instagram_app/screens/settings/widgets/itens_settings/settings_item.dart';
 
 class SettingsTile extends StatelessWidget {
