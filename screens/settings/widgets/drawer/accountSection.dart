@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:instagram_app/screens/settings/widgets/itens_settings/settings_item.dart';
-import 'package:instagram_app/screens/settings/widgets/itens_settings/settings_item.dart';
-import 'package:instagram_app/screens/settings/widgets/itens_settings/settings_tile_widget.dart';
 
 class AccountSection extends StatelessWidget {
   const AccountSection({super.key});

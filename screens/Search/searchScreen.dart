@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_app/models/post_model.dart';
 import 'package:instagram_app/providers/post_provider.dart';
-import 'package:instagram_app/screens/postDetailScreen.dart';
 import 'package:instagram_app/themeColors/appColors.dart';
 import 'package:provider/provider.dart';
 

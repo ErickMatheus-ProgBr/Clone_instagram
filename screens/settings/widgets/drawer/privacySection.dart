@@ -24,7 +24,7 @@ class PrivacySection extends StatelessWidget {
         const SizedBox(height: 8),
 
         ...items.map((dynamicItem) => SettingsTile(item: dynamicItem)).toList(),
-        const SizedBox(height: 28),
+        const SizedBox(height: 5),
       ],
     );
   }
